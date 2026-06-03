@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIETALIAN LEGEND — The Prelude</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --gold: #E8B84B;
+  --gold-light: #ECC96A;
+  --gold-dim: #C49A3C;
+  --gold-pale: rgba(212,168,67,0.15);
+  --red: #C0392B;
+  --green: #27744A;
+  --cream: #FFFFFF;
+  --cream2: #D4C4A8;
+  --ink: #000000;
+  --ink2: #030200;
+  --smoke: rgba(245,237,224,0.05);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #000000;
+  color: #FFFFFF;
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, opacity 0.3s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201,168,76,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+}
+
+/* ── LANG TOGGLE ── */
+.lang-bar {
+  position: fixed; top:0; right:0; z-index:200;
+  padding: 20px 32px;
+  display: flex; gap:8px;
+  background: linear-gradient(to bottom left, rgba(13,11,8,0.9), transparent);
+}
+.lang-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 10px; letter-spacing:3px;
+  color: var(--gold);
+  background: none;
+  border: 1px solid var(--gold-dim);
+  padding: 5px 14px;
+  cursor: none;
+  transition: all 0.3s;
+}
+.lang-btn.active, .lang-btn:hover {
+  color: var(--gold); border-color: var(--gold);
+  background: rgba(201,168,76,0.07);
+}
+
+/* ── GRAIN OVERLAY ── */
+.grain {
+  position: fixed; inset:0; pointer-events:none; z-index:1000;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ══════════════════════════════════════════
+   SCENE 0 — TITLE CURTAIN
+══════════════════════════════════════════ */
+#scene-title {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 40px;
+}
+#scene-title::before { display: none; }
+
+.title-prelude {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(11px,1.5vw,14px);
+  letter-spacing: 6px;
+  color: var(--gold);
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 1.4s ease 0.4s forwards;
+}
+
+.title-main {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: clamp(52px, 11vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 1.4s ease 0.8s forwards;
+}
+.title-main .v { color: var(--red); }
+.title-main .a { color: var(--green); }
+.title-main .rest { color: #FFFFFF; }
+
+.title-leg {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(10px, 1.8vw, 18px);
+  letter-spacing: 14px;
+  color: var(--gold);
+  margin-bottom: 60px;
+  opacity: 0;
+  animation: fadeUp 1.4s ease 1.2s forwards;
+}
+
+.divider-ornament {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.6s forwards;
+}
+.div-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim)); }
+.div-line.r { background: linear-gradient(to left, transparent, var(--gold-dim)); }
+.div-gem { width:5px; height:5px; background:var(--gold); transform:rotate(45deg); }
+.div-gem.sm { width:3px; height:3px; opacity:0.5; }
+
+.title-tagline {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.4vw, 24px);
+  color: #D4C4A8;
+  text-align: center;
+  max-width: 560px;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 1.4s ease 1.8s forwards;
+  margin-bottom: 70px;
+}
+
+.scroll-cue {
+  position: absolute; bottom: 44px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap:10px;
+  opacity: 0;
+  animation: fadeIn 2s ease 2.8s forwards;
+}
+.scroll-cue span {
+  font-family: 'Cinzel', serif;
+  font-size: 8px; letter-spacing: 5px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.scroll-tick {
+  width:1px; height:44px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  animation: tickPulse 2s ease-in-out 2.8s infinite;
+}
+
+/* ══════════════════════════════════════════
+   SCENE SYSTEM
+══════════════════════════════════════════ */
+.scene {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 80px clamp(24px, 8vw, 120px);
+}
+.scene-inner { max-width: 720px; position: relative; z-index:2; }
+
+/* Scene label */
+.scene-label {
+  font-family: 'Cinzel', serif;
+  font-size: 9px; letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 48px;
+  display: flex; align-items: center; gap: 16px;
+  opacity: 0; transform: translateX(-20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.scene-label::after {
+  content:''; flex:1; max-width:60px; height:1px;
+  background: linear-gradient(to right, var(--gold-dim), transparent);
+}
+.scene-label.vis { opacity:1; transform:translateX(0); }
+
+/* Chapter heading */
+.chap-head {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(22px, 4vw, 48px);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin-bottom: 36px;
+  opacity:0; transform:translateY(24px);
+  transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;
+}
+.chap-head.vis { opacity:1; transform:translateY(0); }
+.chap-head em { color:var(--gold); font-style:italic; }
+
+/* Body text */
+.scene-body p {
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 2;
+  color: #D4C4A8;
+  margin-bottom: 28px;
+  font-weight: 400;
+  opacity:0; transform:translateY(16px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.scene-body p.vis { opacity:1; transform:translateY(0); }
+
+.scene-body p strong { color: var(--cream); font-weight:600; }
+.scene-body p em { color: var(--gold); font-style:italic; }
+
+/* Pull quote */
+.pull-quote {
+  margin: 52px 0;
+  padding: 0 0 0 28px;
+  border-left: 2px solid var(--gold);
+  opacity:0; transform:translateX(-12px);
+  transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+}
+.pull-quote.vis { opacity:1; transform:translateX(0); }
+.pull-quote p {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 34px) !important;
+  color: #FFFFFF !important;
+  line-height: 1.6 !important;
+  margin-bottom: 12px !important;
+}
+.pull-quote .attr {
+  font-family: 'Cinzel', serif;
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--gold);
+  font-style: normal;
+  margin-bottom: 0 !important;
+}
+
+/* Scene background atmospheres */
+.scene-bg {
+  position: absolute; inset:0; pointer-events:none; z-index:0;
+  transition: opacity 1.2s;
+}
+
+/* ── Hanoi ── */
+.bg-hanoi { background: #000000; }
+/* ── Saigon ── */
+.bg-saigon { background: #000000; }
+/* ── Prosecco ── */
+.bg-prosecco { background: #000000; }
+/* ── Bridge ── */
+.bg-bridge { background: #000000; }
+
+/* Ambient city labels */
+.city-watermark {
+  position: absolute;
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: clamp(80px, 18vw, 200px);
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,168,76,0.07);
+  right: -20px; bottom: -20px;
+  pointer-events: none;
+  z-index: 1;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ══════════════════════════════════════════
+   FINAL CTA SCENE
+══════════════════════════════════════════ */
+#scene-cta {
+  min-height: 80vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 80px 40px;
+  position: relative; overflow: hidden;
+}
+#scene-cta::before { display: none; }
+
+.cta-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 9px; letter-spacing: 6px;
+  color: var(--gold);
+  margin-bottom: 36px;
+  opacity:0; transition: opacity 1.2s ease;
+}
+.cta-eyebrow.vis { opacity:1; }
+
+.cta-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  opacity:0; transform: translateY(20px);
+  transition: opacity 1.2s ease 0.2s, transform 1.2s ease 0.2s;
+}
+.cta-title.vis { opacity:1; transform:translateY(0); }
+.cta-title span { color: var(--gold); }
+
+.cta-body {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.2vw, 24px);
+  color: #D4C4A8;
+  max-width: 540px;
+  line-height: 1.8;
+  margin-bottom: 56px;
+  opacity:0; transition: opacity 1.2s ease 0.4s;
+}
+.cta-body.vis { opacity:1; }
+
+.btn-group { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+
+.btn-primary {
+  font-family: 'Cinzel', serif;
+  font-size: 10px; letter-spacing:5px;
+  color: var(--ink);
+  background: var(--gold);
+  border: none; padding: 18px 52px;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.35s;
+  text-decoration: none;
+  opacity:0; transform: translateY(12px);
+  transition: opacity 1s ease 0.6s, transform 1s ease 0.6s, background 0.3s, letter-spacing 0.3s;
+  display: inline-block;
+}
+.btn-primary.vis { opacity:1; transform:translateY(0); }
+.btn-primary:hover { background: var(--gold-light); letter-spacing:7px; }
+
+.btn-secondary {
+  font-family: 'Cinzel', serif;
+  font-size: 10px; letter-spacing:4px;
+  color: var(--gold);
+  background: none;
+  border: 1px solid rgba(201,168,76,0.35);
+  padding: 17px 40px;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.3s;
+  text-decoration: none;
+  opacity:0;
+  transition: opacity 1s ease 0.8s, border-color 0.3s, color 0.3s;
+  display: inline-block;
+}
+.btn-secondary.vis { opacity:1; }
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold-light); }
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer {
+  border-top: 1px solid rgba(201,168,76,0.12);
+  padding: 36px 40px;
+  display: flex; justify-content:space-between; align-items:center;
+  flex-wrap: wrap; gap: 20px;
+}
+.foot-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 13px; font-weight:900; letter-spacing:4px;
+}
+.foot-logo .fv { color: var(--red); }
+.foot-logo .fa { color: var(--green); }
+.foot-copy {
+  font-size: 12px; color: var(--gold);
+}
+
+/* ── BILINGUAL ── */
+body.lang-en [data-vi] { display:none; }
+body.lang-vi [data-en] { display:none; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; } to { opacity:1; }
+}
+@keyframes tickPulse {
+  0%,100% { opacity:0.35; transform:scaleY(1); }
+  50%     { opacity:1;    transform:scaleY(1.15); }
+}
+
+/* ── scene separator ── */
+.sep {
+  display:flex; align-items:center; gap:16px;
+  padding: 0 clamp(24px, 8vw, 120px);
+  margin: 0;
+  opacity: 0.4;
+}
+.sep-line { flex:1; height:1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+.sep-gem  { width:4px; height:4px; background:var(--gold); transform:rotate(45deg); }
+
+@media(max-width:600px){
+  .scene { padding: 60px 24px; }
+  .sep   { padding: 0 24px; }
+  .city-watermark { font-size: 80px; }
+  footer { flex-direction:column; text-align:center; }
+}
+</style>
+</head>
+<body class="lang-en">
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+<div class="grain"></div>
+
+<!-- LANG -->
+<div class="lang-bar">
+  <button class="lang-btn" onclick="setLang('vi')">VI</button>
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- ══════════ SCENE 0 — TITLE ══════════ -->
+<div id="scene-title">
+  <p class="title-prelude">
+    <span data-en>A book. A journey. A legend.</span>
+    <span data-vi>Một cuốn sách. Một hành trình. Một huyền thoại.</span>
+  </p>
+
+  <h1 class="title-main">
+    <span class="v">VIET</span><span class="a">A</span><span class="rest">LIAN</span>
+  </h1>
+  <p class="title-leg">LEGEND</p>
+
+  <div class="divider-ornament">
+    <span class="div-line"></span>
+    <span class="div-gem sm"></span>
+    <span class="div-gem"></span>
+    <span class="div-gem sm"></span>
+    <span class="div-line r"></span>
+  </div>
+
+  <p class="title-tagline">
+    <span data-en>Where two civilizations meet at the table —<br>and discover they have always spoken the same language.</span>
+    <span data-vi>Nơi hai nền văn minh gặp nhau trên bàn ăn —<br>và nhận ra họ đã luôn nói cùng một ngôn ngữ.</span>
+  </p>
+
+  <div class="scroll-cue">
+    <div class="scroll-tick"></div>
+    <span data-en>Begin the journey</span>
+    <span data-vi>Bắt đầu hành trình</span>
+  </div>
+</div>
+
+<!-- ══════════ SCENE 1 — HANOI ══════════ -->
+<section class="scene" data-scene>
+  <div class="scene-bg bg-hanoi"></div>
+  <div class="city-watermark">HANOI</div>
+  <div class="scene-inner">
+    <div class="scene-label">
+      <span data-en>Chapter One · Hanoi</span>
+      <span data-vi>Chương Một · Hà Nội</span>
+    </div>
+
+    <h2 class="chap-head">
+      <span data-en>She was a reflection<br>before she was a face.</span>
+      <span data-vi>Cô ấy là bóng phản chiếu<br>trước khi là một khuôn mặt.</span>
+    </h2>
+
+    <div class="scene-body">
+      <p data-en>I met her on an afternoon that seemed no different from any other, beneath that dull sky that let no light through — as if Hanoi wanted to keep everything to itself. I was standing at the edge of one of the lakes, watching the still water, when I saw her first as a reflection.</p>
+      <p data-vi>Tôi gặp cô ấy vào một buổi chiều có vẻ không khác gì những buổi chiều khác — dưới bầu trời xám mờ không cho ánh sáng xuyên qua, như thể Hà Nội muốn giữ tất cả lại cho riêng mình. Tôi đứng bên mép một trong những hồ nước, ngắm mặt nước tĩnh lặng, khi lần đầu nhìn thấy cô — qua bóng phản chiếu.</p>
+
+      <p data-en>Her name was <strong>Anna</strong>. Not her Vietnamese name — but the one she used with foreigners. Like a key to open a door that would otherwise remain closed.</p>
+      <p data-vi>Tên cô là <strong>Anna</strong>. Không phải tên tiếng Việt — mà là cái tên cô dùng với người nước ngoài. Như một chiếc chìa khóa để mở cánh cửa vốn dĩ sẽ mãi khép kín.</p>
+
+      <div class="pull-quote">
+        <p data-en>"You can't stop. If you hesitate, you lose."</p>
+        <p data-vi>"Anh không thể dừng lại. Nếu do dự — anh thua."</p>
+        <p class="attr">— Anna · Hà Nội</p>
+      </div>
+
+      <p data-en>She wasn't talking about the traffic.</p>
+      <p data-vi>Cô không chỉ đang nói về giao thông.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div><div class="sep-gem"></div><div class="sep-line"></div></div>
+
+<!-- ══════════ SCENE 2 — SAIGON ══════════ -->
+<section class="scene" data-scene style="justify-content:flex-end;">
+  <div class="scene-bg bg-saigon"></div>
+  <div class="city-watermark" style="left:-20px;right:auto;">SAIGON</div>
+  <div class="scene-inner">
+    <div class="scene-label">
+      <span data-en>Chapter Two · Saigon</span>
+      <span data-vi>Chương Hai · Sài Gòn</span>
+    </div>
+
+    <h2 class="chap-head">
+      <span data-en>Outside there is Ho Chi Minh City.<br>In my head it remains <em>Saigon.</em></span>
+      <span data-vi>Ngoài kia là Thành phố Hồ Chí Minh.<br>Trong đầu tôi, nó vẫn là <em>Sài Gòn.</em></span>
+    </h2>
+
+    <div class="scene-body">
+      <p data-en>I am sitting at the bar of the Sheraton. Business hotels are all the same — from Nairobi to Yangon. But outside, the city overwhelms you. Spices in the air, engine smoke, soups boiling on the sidewalks. The smell of coriander, hot broth, dried fish. <em>Everything together. Everything mixed.</em></p>
+      <p data-vi>Tôi ngồi ở quầy bar của Sheraton. Các khách sạn doanh nhân đều giống nhau — từ Nairobi đến Yangon. Nhưng bên ngoài, thành phố ập vào anh. Mùi gia vị trong không khí, khói xe, những nồi súp sôi trên vỉa hè. Mùi rau mùi, nước dùng nóng, cá khô. <em>Tất cả cùng nhau. Tất cả trộn lẫn.</em></p>
+
+      <div class="pull-quote">
+        <p data-en>"A few evenings ago I walked along the river with Nguyen. We did not talk much. Sometimes it is enough to walk beside someone to understand a city."</p>
+        <p data-vi>"Vài tối trước tôi đi bộ dọc sông cùng Nguyên. Chúng tôi không nói nhiều. Đôi khi chỉ cần đi bên cạnh một người là đủ để hiểu một thành phố."</p>
+        <p class="attr">— Sài Gòn · Bờ sông Sài Gòn</p>
+      </div>
+
+      <p data-en>Vietnamese girls are beautiful. And they almost always become <strong>extraordinary women.</strong></p>
+      <p data-vi>Những cô gái Việt thật đẹp. Và họ gần như luôn trở thành <strong>những người phụ nữ phi thường.</strong></p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div><div class="sep-gem"></div><div class="sep-line"></div></div>
+
+<!-- ══════════ SCENE 3 — PROSECCO ══════════ -->
+<section class="scene" data-scene>
+  <div class="scene-bg bg-prosecco"></div>
+  <div class="city-watermark">VENETO</div>
+  <div class="scene-inner">
+    <div class="scene-label">
+      <span data-en>The Turning Point · Prosecco Hills</span>
+      <span data-vi>Điểm Chuyển · Đồi Prosecco</span>
+    </div>
+
+    <h2 class="chap-head">
+      <span data-en>The old man said three words<br>that changed everything.</span>
+      <span data-vi>Người đàn ông già nói ba chữ<br>thay đổi tất cả.</span>
+    </h2>
+
+    <div class="scene-body">
+      <p data-en>Prosecco Hills, Veneto, Northern Italy. A September afternoon. Golden light of late summer pouring down on hillsides of vine rows stacked like frozen waves. The smell of damp earth after a morning rain — heavy, sweet, ancient.</p>
+      <p data-vi>Đồi Prosecco, Veneto, miền Bắc nước Ý. Một buổi chiều tháng Chín. Ánh vàng cuối mùa hè đổ xuống những triền đồi trồng nho xếp lớp như sóng biển đông cứng. Mùi đất ẩm sau cơn mưa sáng — nặng, ngọt, cổ xưa.</p>
+
+      <div class="pull-quote">
+        <p>"La vite ha memoria."</p>
+        <p data-en style="font-size:clamp(14px,1.8vw,20px)!important;color:#D4C4A8!important;">The vine has memory.</p>
+        <p data-vi style="font-size:clamp(14px,1.8vw,20px)!important;color:#D4C4A8!important;">Cây nho có ký ức.</p>
+        <p class="attr">— <span data-en>An old winegrower · Prosecco Hills</span><span data-vi>Người trồng nho già · Đồi Prosecco</span></p>
+      </div>
+
+      <p data-en>He did not know he had just spoken the same language as <strong>my grandmother in Vietnam</strong> — a woman who had never set foot in Europe.</p>
+      <p data-vi>Ông không biết rằng ông vừa nói cùng một ngôn ngữ với <strong>bà nội tôi ở Việt Nam</strong> — một người chưa bao giờ đặt chân đến châu Âu.</p>
+
+      <p data-en>The same language. Two civilizations. A thousand years of not knowing each other existed.</p>
+      <p data-vi>Cùng một ngôn ngữ. Hai nền văn minh. Ngàn năm không biết nhau tồn tại.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div><div class="sep-gem"></div><div class="sep-line"></div></div>
+
+<!-- ══════════ SCENE 4 — THE BRIDGE ══════════ -->
+<section class="scene" data-scene style="justify-content:center; text-align:center; padding: 100px clamp(24px,8vw,120px);">
+  <div class="scene-bg bg-bridge"></div>
+  <div class="scene-inner" style="max-width:680px; margin:0 auto;">
+    <div class="scene-label" style="justify-content:center;">
+      <span class="div-line" style="max-width:40px;flex:none;"></span>
+      <span data-en>The Legend Begins</span>
+      <span data-vi>Huyền Thoại Bắt Đầu</span>
+      <span class="div-line r" style="max-width:40px;flex:none;"></span>
+    </div>
+
+    <h2 class="chap-head" style="text-align:center;">
+      <span data-en>Vietnam and Italy did not meet<br>by accident. They met because<br><em>they were always the same kind of people.</em></span>
+      <span data-vi>Việt Nam và Ý không gặp nhau<br>vì ngẫu nhiên. Họ gặp nhau vì<br><em>họ luôn là cùng một loại con người.</em></span>
+    </h2>
+
+    <div class="scene-body">
+      <p data-en style="text-align:center;">Those who believe the family is the last unit that cannot be broken. Those who build identity not from empire — but from the village, from the land, from the craftsman's hands. Those who survived colonialism, war, and poverty — and chose to endure through <strong>beauty, through food, through stories told to their children.</strong></p>
+      <p data-vi style="text-align:center;">Những người tin rằng gia đình là đơn vị cuối cùng không thể bị phá vỡ. Những người xây dựng bản sắc không phải từ đế chế — mà từ làng, từ vùng đất, từ bàn tay của người thợ. Những người đã sống sót qua thực dân, chiến tranh và đói nghèo — và chọn cách tồn tại bằng <strong>cái đẹp, bằng thức ăn, bằng câu chuyện kể cho con cháu.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<div id="scene-cta" data-scene>
+  <p class="cta-eyebrow">
+    <span data-en>VIETALIAN LEGEND · The Book</span>
+    <span data-vi>VIETALIAN LEGEND · Cuốn Sách</span>
+  </p>
+
+  <h2 class="cta-title">
+    <span data-en>A story told right —<br><span>cannot be forgotten.</span></span>
+    <span data-vi>Một câu chuyện được kể đúng —<br><span>sẽ không thể bị quên.</span></span>
+  </h2>
+
+  <p class="cta-body">
+    <span data-en>From the lakes of Hanoi to the bars of Saigon, from the hillsides of Veneto to the pages of this book — the journey begins here.</span>
+    <span data-vi>Từ những hồ nước Hà Nội đến quầy bar Sài Gòn, từ những triền đồi Veneto đến những trang sách này — hành trình bắt đầu từ đây.</span>
+  </p>
+
+  <div class="btn-group">
+    <a href="#" class="btn-primary">
+      <span data-en>Get the Book</span>
+      <span data-vi>Đặt Sách</span>
+    </a>
+    <a href="vietalian-legend.html" class="btn-secondary">
+      <span data-en>The Full Universe</span>
+      <span data-vi>Vũ Trụ VIETALIAN</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">
+    <span class="fv">VIET</span><span class="fa">A</span>LIAN LEGEND
+  </div>
+  <p class="foot-copy">
+    <span data-en>© 2025 · Where two civilizations meet at the table</span>
+    <span data-vi>© 2025 · Nơi hai nền văn minh gặp nhau trên bàn ăn</span>
+  </p>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+const curR = document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+function ringFollow(){
+  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+  curR.style.left=rx+'px'; curR.style.top=ry+'px';
+  requestAnimationFrame(ringFollow);
+}
+ringFollow();
+
+// ── LANG ──
+function setLang(l){
+  document.body.className='lang-'+l;
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent.toLowerCase()===l);
+  });
+}
+
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target;
+    // scene-level elements
+    el.querySelectorAll('.scene-label, .chap-head, .pull-quote, .cta-eyebrow, .cta-title, .cta-body, .btn-primary, .btn-secondary').forEach(x=>{
+      x.classList.add('vis');
+    });
+    // staggered body paragraphs
+    el.querySelectorAll('.scene-body p').forEach((p,i)=>{
+      setTimeout(()=> p.classList.add('vis'), i*140);
+    });
+    io.unobserve(el);
+  });
+}, { threshold: 0.14 });
+
+document.querySelectorAll('[data-scene]').forEach(s=> io.observe(s));
+</script>
+</body>
+</html> 
