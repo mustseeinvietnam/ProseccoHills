@@ -1,1 +1,587 @@
-https://claude.ai/public/artifacts/8673c258-20b5-4b07-8ef2-00d156617dc2
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Issue No. 003 — Vietalian Legacy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:      #0E0C0A;
+    --parchment:#F7F3ED;
+    --gold:     #B8922A;
+    --gold-lt:  #D4AE5C;
+    --rust:     #8B3A2A;
+    --fog:      #7A7570;
+    --rule:     rgba(184,146,42,0.25);
+    --red-vn:   #DA251D;
+    --green-it: #009246;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER BAR ── */
+  .topbar {
+    background: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .topbar strong { color: var(--gold-lt); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 72px 40px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(184,146,42,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .issue-label {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .flag-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+    font-size: 26px;
+  }
+  .flag-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(184,146,42,0.4);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    line-height: 1.08;
+    color: #F0EBE3;
+    margin-bottom: 16px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-lt);
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: rgba(240,235,227,0.6);
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+
+  /* gold rule */
+  .gold-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin: 32px auto;
+    opacity: 0.6;
+  }
+
+  /* ── BODY WRAPPER ── */
+  .body-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 64px 32px 96px;
+  }
+
+  /* ── INTRO ── */
+  .intro p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    line-height: 1.85;
+    color: #2A2520;
+    margin-bottom: 1.4em;
+  }
+  .intro p.lead {
+    font-size: 1.55rem;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 8px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    margin-top: 52px;
+  }
+
+  /* ── INVESTMENT TABLE ── */
+  .inv-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0 40px;
+    font-size: 0.88rem;
+  }
+  .inv-table thead tr {
+    border-bottom: 1px solid var(--rule);
+  }
+  .inv-table th {
+    font-weight: 500;
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fog);
+    padding: 0 12px 12px 0;
+    text-align: left;
+  }
+  .inv-table td {
+    padding: 14px 12px 14px 0;
+    border-bottom: 1px solid rgba(184,146,42,0.1);
+    vertical-align: top;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: #2A2520;
+  }
+  .inv-table tr.highlight td {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .inv-table tr.highlight td:first-child::before {
+    content: '★ ';
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+  .amount {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .amount.featured { color: var(--gold); }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-left: 2px solid var(--gold);
+    padding: 16px 0 16px 28px;
+    margin: 40px 0;
+  }
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--rust);
+  }
+
+  /* ── FEATURE CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0 40px;
+  }
+  @media (max-width: 540px) { .cards { grid-template-columns: 1fr; } }
+
+  .card {
+    border: 1px solid var(--rule);
+    padding: 24px 20px;
+    background: rgba(184,146,42,0.03);
+  }
+  .card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .card-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--fog);
+    line-height: 1.6;
+  }
+
+  /* ── BODY PROSE ── */
+  .prose p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: #2A2520;
+    margin-bottom: 1.4em;
+  }
+  .prose strong { color: var(--ink); font-weight: 600; }
+
+  /* ── TIMELINE ── */
+  .timeline { margin: 28px 0 40px; }
+  .tl-step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .tl-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--gold-lt);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .tl-content strong {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    display: block;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .tl-content span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--fog);
+  }
+
+  /* ── VGC CALLOUT ── */
+  .vgc-callout {
+    background: var(--ink);
+    padding: 40px 36px;
+    margin: 52px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .vgc-callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .vgc-callout .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .vgc-callout h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.7rem;
+    color: #F0EBE3;
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+  .vgc-callout p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: rgba(240,235,227,0.65);
+    line-height: 1.75;
+    margin-bottom: 24px;
+  }
+  .vgc-cta {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold-lt);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .vgc-cta:hover { background: rgba(184,146,42,0.12); }
+
+  /* ── CLOSING ── */
+  .closing {
+    text-align: center;
+    padding-top: 56px;
+    border-top: 1px solid var(--rule);
+    margin-top: 56px;
+  }
+  .closing .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .closing .sig {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fog);
+  }
+  .closing .sig span { color: var(--ink); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    text-align: center;
+    padding: 32px 40px;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  footer strong { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>🇻🇳 &nbsp; Vietalian Legacy &nbsp; 🇮🇹</span>
+  <strong>Issue No. 003</strong>
+  <span>Vietnam · Italy · Global Markets</span>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <p class="issue-label">Issue No. 003 · June 2026</p>
+  <div class="flag-row">
+    🇮🇹
+    <div class="flag-divider"></div>
+    🌍
+    <div class="flag-divider"></div>
+    🇻🇳
+  </div>
+  <h1>Your <em>European Future</em><br>Starts at €250,000</h1>
+  <div class="gold-rule"></div>
+  <p class="hero-sub">Italy's Golden Visa — the smartest door into Europe<br>that most investors don't know is open.</p>
+</header>
+
+<!-- BODY -->
+<main class="body-wrap">
+
+  <!-- INTRO -->
+  <section class="intro">
+    <p class="lead">In a world of tightening borders and shifting alliances, the most valuable asset an investor can hold is not property or stock — it is optionality.</p>
+    <p>Italy has quietly built one of Europe's most compelling residency-by-investment programs. No real estate required. No mandatory stay. Investment made only after approval. And the lowest entry point among major EU economies: <strong>€250,000</strong> — directed into Italian innovation.</p>
+    <p>This is not just immigration. This is a strategic move. And it is one that aligns perfectly with the Vietalian Legacy vision: building lasting bridges between Vietnam, Italy, and the world.</p>
+  </section>
+
+  <!-- INVESTMENT OPTIONS -->
+  <p class="section-label">The Four Routes</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:4px;">How Much. For What.</h2>
+
+  <table class="inv-table">
+    <thead>
+      <tr>
+        <th>Route</th>
+        <th>Minimum</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>🚀 Innovative Startup</td>
+        <td><span class="amount featured">€250,000</span></td>
+        <td>Most popular. Lowest threshold in the EU.</td>
+      </tr>
+      <tr>
+        <td>🏢 Italian Company</td>
+        <td><span class="amount">€500,000</span></td>
+        <td>Listed or unlisted companies operating in Italy.</td>
+      </tr>
+      <tr>
+        <td>❤️ Philanthropic Donation</td>
+        <td><span class="amount">€1,000,000</span></td>
+        <td>Projects of public interest — culture, research, environment.</td>
+      </tr>
+      <tr>
+        <td>🏛️ Government Bonds</td>
+        <td><span class="amount">€2,000,000</span></td>
+        <td>Capital-secure. Backed by the Italian state.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <p>"Approved first. Invest after. No capital at risk before your Nulla Osta is in hand."</p>
+  </div>
+
+  <!-- WHY STARTUP ROUTE -->
+  <p class="section-label">Why the €250K Startup Route</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:20px;">The Most Accessible Door into Europe</h2>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Fast Processing</div>
+      <div class="card-body">3–4 months. One of the fastest EU residency programs. No backlogs.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">No Residency Required</div>
+      <div class="card-body">Keep your global life. No minimum stay to maintain or renew your permit.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">👨‍👩‍👧</div>
+      <div class="card-title">Full Family Inclusion</div>
+      <div class="card-body">Spouse, children under 18, and dependent parents — all included at no extra cost.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <div class="card-title">Approve Before You Invest</div>
+      <div class="card-body">Receive your Nulla Osta first. Only then transfer capital. Zero financial risk upfront.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗺️</div>
+      <div class="card-title">Schengen Access</div>
+      <div class="card-body">Visa-free movement across all 27 Schengen states. Europe as your backyard.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏥</div>
+      <div class="card-title">Italian Healthcare</div>
+      <div class="card-body">Register with the SSN and access Italy's national health service — free at point of use.</div>
+    </div>
+  </div>
+
+  <!-- STARTUP CRITERIA -->
+  <p class="section-label">Startup Criteria</p>
+  <div class="prose">
+    <p>Not every startup qualifies. To direct your €250,000 into the innovative startup route, the target company must meet three conditions: it must be officially registered in Italy's innovative startup registry (<em>startup.registroimprese.it</em>), incorporated within the past <strong>five years</strong>, and generating less than <strong>€5 million</strong> in annual revenue. The focus is on technology, deep-tech, and innovation-driven ventures — exactly the sector where Italian engineering brilliance intersects with global demand.</p>
+  </div>
+
+  <!-- 2026 FLAT TAX UPDATE -->
+  <p class="section-label">Critical 2026 Update</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:16px;">The Flat Tax Just Changed</h2>
+  <div class="prose">
+    <p>From 1 January 2026, Italy's flat tax regime for new residents was updated by the 2026 Budget Law. The annual substitute tax on all foreign-sourced income — dividends, interest, rental income, capital gains — is now set at a fixed <strong>€300,000 per year</strong>, regardless of the amount earned abroad.</p>
+    <p>Each qualifying family member adds <strong>€50,000</strong> per year. The regime lasts up to <strong>15 years</strong>. For high-net-worth individuals earning over €1 million per year in foreign income, this represents an extraordinary level of tax efficiency unavailable almost anywhere else in Europe.</p>
+  </div>
+
+  <!-- PATHWAY TIMELINE -->
+  <p class="section-label">The Pathway</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:20px;">From Application to Citizenship</h2>
+
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-dot">01</div>
+      <div class="tl-content">
+        <strong>Apply for Nulla Osta</strong>
+        <span>Submit investment plan to the Italian government. No capital transferred yet.</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">02</div>
+      <div class="tl-content">
+        <strong>Receive Pre-Approval (3–4 months)</strong>
+        <span>Certificate of no impediment issued. Only now do you transfer the €250,000.</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">03</div>
+      <div class="tl-content">
+        <strong>Enter Italy & Obtain Residence Permit</strong>
+        <span>2-year residence permit (permesso di soggiorno). Family included.</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">04</div>
+      <div class="tl-content">
+        <strong>Renew Every 3 Years</strong>
+        <span>Maintain investment. No minimum stay required. Renewable without limit.</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">05</div>
+      <div class="tl-content">
+        <strong>Permanent Residency — Year 5</strong>
+        <span>Five years of maintained residency unlocks permanent status.</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">06</div>
+      <div class="tl-content">
+        <strong>Italian Citizenship — Year 10</strong>
+        <span>Ten years + B1 Italian language = eligible for full Italian (EU) citizenship.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VGC CALLOUT -->
+  <div class="vgc-callout">
+    <p class="eyebrow">VGlobal Capital · Advisory</p>
+    <h3>We Know Both Sides of This Bridge</h3>
+    <p>At VGlobal Capital, we have spent years on the ground — in Vietnam's investment corridors and Italy's innovation ecosystem. We understand what qualifying startups look like, what due diligence demands, and what Vietnamese investors need to navigate European residency with confidence.</p>
+    <p>If Italy's Golden Visa is the door, we know who holds the key.</p>
+    <a href="https://vietalianlegend.substack.com" class="vgc-cta">Get in Touch →</a>
+  </div>
+
+  <!-- CLOSING THOUGHT -->
+  <p class="section-label">The Bigger Picture</p>
+  <div class="prose">
+    <p>Portugal closed its real estate route. Greece raised its thresholds. Spain shut its program entirely. Italy, by contrast, remains open, stable, and unannounced — a window that the world's most sophisticated investors are only now beginning to find.</p>
+    <p>For Vietnamese entrepreneurs, business families, and investors building global wealth, the Italian Golden Visa is not just a residency permit. It is a <strong>Plan B</strong> — a second shore to stand on when the world shifts beneath your feet.</p>
+    <p>Vietnam gave you the ambition. Italy gives you the door. Vietalian Legacy shows you the way through.</p>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <div class="gold-rule"></div>
+    <p class="tagline">"The legacy is built one bridge at a time."</p>
+    <p class="sig">
+      <span>VGlobal Capital</span> &nbsp;·&nbsp;
+      Vietalian Legacy &nbsp;·&nbsp;
+      Vietnam · Italy · Global Markets
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  <strong>Vietalian Legacy</strong> &nbsp;·&nbsp; Issue No. 003 &nbsp;·&nbsp; vietalianlegend.substack.com &nbsp;·&nbsp; "Bridging East &amp; West through investment excellence."
+</footer>
+
+</body>
+</html>
+
