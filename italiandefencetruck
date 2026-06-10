@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Isoli HDR 200 — VGlobal Capital</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --night:   #0A0C10;
+    --slate:   #141720;
+    --gold:    #C9A84C;
+    --gold-lt: #E0BE78;
+    --olive:   #4A5240;
+    --sand:    #C8B89A;
+    --fog:     #7A7C80;
+    --white:   #F2EFE9;
+    --red:     #8B1A1A;
+    --rule:    rgba(201,168,76,0.2);
+  }
+
+  body {
+    background: var(--night);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 900px;
+    background: var(--slate);
+    border: 1px solid rgba(201,168,76,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* top accent line */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--gold) 50%, #009246 100%);
+  }
+
+  /* ── HEADER BAR ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .brand-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo-vglobal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--night);
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+
+  .logo-text {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+    line-height: 1.4;
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--rule);
+  }
+
+  .logo-vietalian {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .vi-mark {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #DA251D 50%, #009246 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+    letter-spacing: -0.04em;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .header-right .eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--fog);
+    margin-bottom: 3px;
+  }
+
+  .header-right .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gold);
+  }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 340px;
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+  }
+
+  .hero-image {
+    position: relative;
+    background: linear-gradient(135deg, #1a1f14 0%, #2a3020 100%);
+    overflow: hidden;
+    min-height: 280px;
+  }
+
+  /* Truck silhouette illustration */
+  .truck-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .truck-svg {
+    width: 85%;
+    opacity: 0.92;
+  }
+
+  .terrain-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--olive), var(--gold), var(--olive));
+    opacity: 0.6;
+  }
+
+  .model-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(10,12,16,0.85);
+    border: 1px solid var(--gold);
+    padding: 6px 12px;
+  }
+
+  .model-badge .model-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+  }
+
+  .model-badge .model-maker {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fog);
+  }
+
+  .flag-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    font-size: 18px;
+    display: flex;
+    gap: 4px;
+  }
+
+  /* ── SPECS PANEL ── */
+  .specs-panel {
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .product-title {
+    margin-bottom: 20px;
+  }
+
+  .product-title .category {
+    font-size: 8px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .product-title h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.9rem;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .product-title .subtitle {
+    font-size: 11px;
+    color: var(--fog);
+    letter-spacing: 0.08em;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .spec-item {
+    border-left: 2px solid var(--rule);
+    padding-left: 10px;
+  }
+
+  .spec-item .spec-label {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fog);
+    margin-bottom: 3px;
+  }
+
+  .spec-item .spec-value {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem;
+    color: var(--white);
+  }
+
+  .spec-item.highlight .spec-value {
+    color: var(--gold-lt);
+  }
+
+  /* ── USE CASES ── */
+  .use-cases {
+    padding: 0 28px 24px;
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+  }
+
+  .use-cases .section-label {
+    font-size: 8px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .use-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .use-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--rule);
+    padding: 12px 10px;
+    text-align: center;
+  }
+
+  .use-item .use-icon { font-size: 1.3rem; margin-bottom: 6px; }
+
+  .use-item .use-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sand);
+    line-height: 1.4;
+  }
+
+  /* ── SEA MARKET BAR ── */
+  .sea-bar {
+    background: rgba(201,168,76,0.06);
+    border-top: 1px solid var(--rule);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .sea-bar .sea-label {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--fog);
+  }
+
+  .sea-flags {
+    display: flex;
+    gap: 8px;
+    font-size: 18px;
+    align-items: center;
+  }
+
+  .sea-flags span {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: rgba(0,0,0,0.3);
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--rule);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer .footer-left {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--gold);
+  }
+
+  .footer .footer-right {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fog);
+  }
+
+  .footer .footer-right strong {
+    color: var(--sand);
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand-logos">
+      <div class="logo-vglobal">
+        <div class="logo-mark">VG</div>
+        <div class="logo-text">VGlobal<br>Capital</div>
+      </div>
+      <div class="logo-divider"></div>
+      <div class="logo-vietalian">
+        <div class="vi-mark">VI</div>
+        <div class="logo-text">Vietalian<br>Legacy</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <p class="eyebrow">Defence Partnership</p>
+      <p class="tagline">"Bridging East &amp; West through investment excellence"</p>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+
+    <!-- Truck Visual -->
+    <div class="hero-image">
+      <div class="truck-visual">
+        <!-- HDR 200 SVG illustration — 8x8 heavy recovery truck -->
+        <svg class="truck-svg" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ground shadow -->
+          <ellipse cx="250" cy="272" rx="210" ry="12" fill="rgba(0,0,0,0.4)"/>
+
+          <!-- Main chassis body -->
+          <rect x="60" y="130" width="380" height="100" rx="6" fill="#3A4028"/>
+          <rect x="60" y="130" width="380" height="100" rx="6" stroke="#5A6040" stroke-width="1.5"/>
+
+          <!-- Cab -->
+          <rect x="310" y="80" width="120" height="110" rx="5" fill="#2E3520"/>
+          <rect x="310" y="80" width="120" height="110" rx="5" stroke="#5A6040" stroke-width="1.5"/>
+
+          <!-- Cab windows -->
+          <rect x="322" y="92" width="45" height="35" rx="3" fill="#1A2535" opacity="0.9"/>
+          <rect x="375" y="92" width="42" height="35" rx="3" fill="#1A2535" opacity="0.9"/>
+          <line x1="322" y1="92" x2="367" y2="127" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+
+          <!-- Recovery crane arm -->
+          <rect x="80" y="95" width="16" height="80" rx="3" fill="#4A5535" stroke="#6A7550" stroke-width="1"/>
+          <rect x="96" y="98" width="130" height="12" rx="3" fill="#4A5535" stroke="#6A7550" stroke-width="1" transform="rotate(-25 96 98)"/>
+          <!-- Crane cable -->
+          <line x1="180" y1="75" x2="165" y2="130" stroke="#C9A84C" stroke-width="1.5" opacity="0.7"/>
+          <!-- Hook -->
+          <circle cx="165" cy="133" r="5" fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+
+          <!-- Winch system -->
+          <rect x="105" y="155" width="80" height="30" rx="3" fill="#252B1A" stroke="#4A5028" stroke-width="1"/>
+          <circle cx="145" cy="170" r="10" fill="#1A1F12" stroke="#C9A84C" stroke-width="1.2"/>
+          <circle cx="145" cy="170" r="4" fill="#C9A84C" opacity="0.6"/>
+
+          <!-- Tool boxes -->
+          <rect x="200" y="155" width="95" height="30" rx="2" fill="#252B1A" stroke="#4A5028" stroke-width="1"/>
+          <line x1="247" y1="155" x2="247" y2="185" stroke="#4A5028" stroke-width="1"/>
+
+          <!-- 8x8 Wheels — Left side -->
+          <circle cx="105" cy="240" r="32" fill="#1A1C14" stroke="#5A6040" stroke-width="2"/>
+          <circle cx="105" cy="240" r="22" fill="#111310" stroke="#4A5028" stroke-width="1.5"/>
+          <circle cx="105" cy="240" r="8" fill="#C9A84C" opacity="0.4"/>
+          <!-- Tread detail -->
+          <path d="M105 208 A32 32 0 0 1 137 240" stroke="#6A7550" stroke-width="3" fill="none" stroke-dasharray="4 3"/>
+
+          <circle cx="185" cy="240" r="32" fill="#1A1C14" stroke="#5A6040" stroke-width="2"/>
+          <circle cx="185" cy="240" r="22" fill="#111310" stroke="#4A5028" stroke-width="1.5"/>
+          <circle cx="185" cy="240" r="8" fill="#C9A84C" opacity="0.4"/>
+
+          <circle cx="265" cy="240" r="32" fill="#1A1C14" stroke="#5A6040" stroke-width="2"/>
+          <circle cx="265" cy="240" r="22" fill="#111310" stroke="#4A5028" stroke-width="1.5"/>
+          <circle cx="265" cy="240" r="8" fill="#C9A84C" opacity="0.4"/>
+
+          <circle cx="365" cy="240" r="32" fill="#1A1C14" stroke="#5A6040" stroke-width="2"/>
+          <circle cx="365" cy="240" r="22" fill="#111310" stroke="#4A5028" stroke-width="1.5"/>
+          <circle cx="365" cy="240" r="8" fill="#C9A84C" opacity="0.4"/>
+
+          <!-- Front bumper / winch -->
+          <rect x="410" y="165" width="28" height="50" rx="3" fill="#252B1A" stroke="#5A6040" stroke-width="1.5"/>
+          <rect x="418" y="175" width="12" height="30" rx="1" fill="#C9A84C" opacity="0.3"/>
+
+          <!-- Headlights -->
+          <rect x="422" y="148" width="16" height="10" rx="2" fill="#E8D080" opacity="0.8"/>
+          <rect x="422" y="162" width="16" height="8" rx="2" fill="#E8D080" opacity="0.5"/>
+
+          <!-- Italian flag stripe on cab -->
+          <rect x="310" y="136" width="10" height="54" fill="#009246" opacity="0.7"/>
+          <rect x="320" y="136" width="10" height="54" fill="#F4F4F4" opacity="0.6"/>
+          <rect x="330" y="136" width="10" height="54" fill="#CE2B37" opacity="0.7"/>
+
+          <!-- ISOLI text on body -->
+          <text x="88" y="148" fill="#C9A84C" font-family="Arial" font-size="11" font-weight="bold" letter-spacing="2" opacity="0.8">ISOLI</text>
+
+          <!-- Mud flaps -->
+          <rect x="68" y="218" width="8" height="18" rx="1" fill="#1A1C14"/>
+          <rect x="148" y="218" width="8" height="18" rx="1" fill="#1A1C14"/>
+          <rect x="228" y="218" width="8" height="18" rx="1" fill="#1A1C14"/>
+          <rect x="328" y="218" width="8" height="18" rx="1" fill="#1A1C14"/>
+        </svg>
+      </div>
+      <div class="model-badge">
+        <div class="model-name">HDR 200</div>
+        <div class="model-maker">Isoli S.p.A. · Italy</div>
+      </div>
+      <div class="flag-badge">🇮🇹</div>
+      <div class="terrain-bar"></div>
+    </div>
+
+    <!-- Specs Panel -->
+    <div class="specs-panel">
+      <div class="product-title">
+        <p class="category">Isoli Defence Vehicles · Recommended for SEA</p>
+        <h2>HDR 200<br>Military Rescue</h2>
+        <p class="subtitle">Heavy Recovery Vehicle · 8×8 All-Terrain</p>
+      </div>
+
+      <div class="specs-grid">
+        <div class="spec-item highlight">
+          <div class="spec-label">Drive System</div>
+          <div class="spec-value">8×8 All-Terrain</div>
+        </div>
+        <div class="spec-item highlight">
+          <div class="spec-label">Winch Pull</div>
+          <div class="spec-value">20–30 Ton</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Frame</div>
+          <div class="spec-value">High-Strength Alloy Steel</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Winch Config</div>
+          <div class="spec-value">1, 2 or 3 Winches</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Lifting Arm</div>
+          <div class="spec-value">Telescopic</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Certification</div>
+          <div class="spec-value">EU Military Grade</div>
+        </div>
+        <div class="spec-item highlight">
+          <div class="spec-label">Proven In</div>
+          <div class="spec-value">🇻🇳 Vietnamese Army</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Manufacturer</div>
+          <div class="spec-value">Isoli S.p.A., Padova 🇮🇹</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="use-cases">
+    <p class="section-label">Why This Vehicle for Southeast Asia</p>
+    <div class="use-grid">
+      <div class="use-item">
+        <div class="use-icon">🌊</div>
+        <div class="use-label">Flood &amp; Disaster Response</div>
+      </div>
+      <div class="use-item">
+        <div class="use-icon">🏔️</div>
+        <div class="use-label">Mountain &amp; Jungle Terrain</div>
+      </div>
+      <div class="use-item">
+        <div class="use-icon">🛡️</div>
+        <div class="use-label">Border Security Ops</div>
+      </div>
+      <div class="use-item">
+        <div class="use-icon">🚁</div>
+        <div class="use-label">Heavy Vehicle Recovery</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEA MARKETS BAR -->
+  <div class="sea-bar">
+    <div class="sea-label">Target Markets · Southeast Asia</div>
+    <div class="sea-flags">
+      🇰🇭 🇱🇦 🇲🇲 🇹🇱 🇵🇭 🇮🇩
+      <span>Defense Forces Modernizing Their Fleets</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">"Trusted by the Vietnamese Army. Ready for Southeast Asia."</div>
+    <div class="footer-right">
+      <strong>VGlobal Capital</strong> · Vietalian Legacy · Vietnam · Italy · Global Markets
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
