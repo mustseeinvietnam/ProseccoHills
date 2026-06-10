@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vietalian Legend — Khi Văn Chương Việt Gặp Rượu Vang Ý</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:    #C0392B;
+    --green:  #1A6B3A;
+    --gold:   #B8960C;
+    --cream:  #FAF7F0;
+    --ink:    #1C1C1C;
+    --muted:  #6B6055;
+    --border: rgba(184,150,12,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    overflow: hidden;
+    background: #0e0a05;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(192,57,43,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(26,107,58,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(184,150,12,0.10) 0%, transparent 50%);
+  }
+
+  /* Animated vine / grape motif */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' opacity='0.04'%3E%3Ccircle cx='40' cy='40' r='6' fill='%23B8960C'/%3E%3Ccircle cx='80' cy='60' r='4' fill='%23B8960C'/%3E%3Ccircle cx='60' cy='90' r='5' fill='%23B8960C'/%3E%3Ccircle cx='100' cy='30' r='3' fill='%23B8960C'/%3E%3Ccircle cx='200' cy='200' r='6' fill='%23B8960C'/%3E%3Ccircle cx='240' cy='220' r='4' fill='%23B8960C'/%3E%3Ccircle cx='220' cy='250' r='5' fill='%23B8960C'/%3E%3Ccircle cx='260' cy='180' r='3' fill='%23B8960C'/%3E%3C/svg%3E");
+    background-size: 400px 400px;
+  }
+
+  .hero-logo {
+    position: relative;
+    width: min(260px, 55vw);
+    margin-bottom: 40px;
+    filter: drop-shadow(0 0 40px rgba(184,150,12,0.3));
+    animation: floatLogo 5s ease-in-out infinite;
+  }
+
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .hero-eyebrow {
+    position: relative;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    position: relative;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(36px, 7vw, 84px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: #FAF7F0;
+    max-width: 900px;
+    margin-bottom: 24px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    position: relative;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: rgba(250,247,240,0.65);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  .hero-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--gold);
+    font-size: 18px;
+  }
+  .hero-divider::before,
+  .hero-divider::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+  .hero-divider::after { transform: scaleX(-1); }
+
+  /* ── ARTICLE BODY ── */
+  .article {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+  }
+
+  /* Pull quote / opening */
+  .opening-quote {
+    border-left: 3px solid var(--gold);
+    padding: 24px 32px;
+    margin: 0 0 64px;
+    background: rgba(184,150,12,0.05);
+    border-radius: 0 4px 4px 0;
+  }
+  .opening-quote p {
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .opening-quote cite {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Section header */
+  .section-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 72px 0 32px;
+  }
+
+  .section-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 0.85;
+    color: var(--gold);
+    opacity: 0.25;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .section-titles { flex: 1; }
+
+  .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  p {
+    margin-bottom: 22px;
+  }
+
+  /* Region grid */
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2px;
+    margin: 40px 0 48px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .region-card {
+    padding: 20px 18px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  .region-card:hover { background: rgba(192,57,43,0.04); }
+
+  .region-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .region-wine {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .region-note {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Premio Nonino feature box */
+  .feature-box {
+    position: relative;
+    margin: 56px 0;
+    padding: 40px 40px 40px 48px;
+    background: linear-gradient(135deg, #0e0a05 0%, #1a0f05 100%);
+    border-radius: 4px;
+    color: #FAF7F0;
+    overflow: hidden;
+  }
+
+  .feature-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, var(--red), var(--gold), var(--green));
+  }
+
+  .feature-box-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .feature-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: #FAF7F0;
+  }
+
+  .feature-box p {
+    font-size: 16px;
+    color: rgba(250,247,240,0.75);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .feature-box p:last-child { margin-bottom: 0; }
+
+  /* Map callout */
+  .map-callout {
+    background: rgba(26,107,58,0.07);
+    border: 1px solid rgba(26,107,58,0.2);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 40px 0;
+  }
+
+  .map-callout-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .map-callout p {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 0;
+  }
+
+  /* Closing manifesto */
+  .manifesto {
+    margin-top: 80px;
+    padding: 56px 0 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .manifesto-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 32px;
+  }
+
+  .manifesto-title span {
+    color: var(--red);
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .manifesto p {
+    font-size: 18px;
+    max-width: 580px;
+    margin: 0 auto 22px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* Footer brand */
+  .footer {
+    background: #0e0a05;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    width: 100px;
+    opacity: 0.85;
+    margin-bottom: 20px;
+  }
+
+  .footer-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(184,150,12,0.6);
+  }
+
+  /* Inline flag dots */
+  .flag-vn { color: var(--red); font-weight: 700; }
+  .flag-it { color: var(--green); font-weight: 700; }
+
+  /* Horizontal rule ornament */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    margin: 48px 0;
+    font-size: 22px;
+    letter-spacing: 0.5em;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 600px) {
+    .region-grid { grid-template-columns: 1fr 1fr; }
+    .feature-box { padding: 28px 24px 28px 32px; }
+    .section-number { font-size: 52px; }
+    .opening-quote { padding: 20px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <img
+    src="/mnt/user-data/uploads/IMG_3447.png"
+    alt="Vietalian Logo"
+    class="hero-logo"
+    onerror="this.style.display='none'"
+  />
+  <p class="hero-eyebrow">Vietalian Legend · Số đặc biệt</p>
+  <h1 class="hero-title">Khi Văn Chương Việt<br>Gặp <em>Rượu Vang Ý</em></h1>
+  <p class="hero-subtitle">Từ giải Premio Nonino ở Friuli đến ly Amarone trên bàn người Việt — một cuộc hội ngộ bất ngờ qua 20 vùng đất huyền thoại</p>
+  <div class="hero-divider">✦</div>
+</section>
+
+<!-- ARTICLE BODY -->
+<article class="article">
+
+  <div class="opening-quote">
+    <p>"Văn chương và rượu vang đều là nghệ thuật chắt lọc — cả hai biến thời gian thành tinh chất, biến đất đai thành cảm xúc."</p>
+    <cite>— Vietalian Legend</cite>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section-head">
+    <div class="section-number">I</div>
+    <div class="section-titles">
+      <p class="section-eyebrow">Điểm Gặp Gỡ Bất Ngờ</p>
+      <h2 class="section-title">Premio Nonino & Friuli — Nơi Văn Học Uống Rượu</h2>
+    </div>
+  </div>
+
+  <p>Ít người biết rằng giải thưởng văn học danh giá <strong>Premio Nonino</strong> — nơi nhà văn Việt Nam <strong>Nguyễn Huy Thiệp</strong> từng được vinh danh — không được tổ chức ở Rome hay Milan. Nó được tổ chức tại <strong>Friuli-Venezia-Giulia</strong>, vùng cực đông bắc nước Ý, sát biên giới Slovenia và Áo. Chính là mảnh đất sinh ra loại rượu grappa nổi tiếng thế giới của gia đình Nonino.</p>
+
+  <p>Kể từ năm 1975, gia tộc Nonino — những người cất rượu grappa — đã quyết định trao giải cho những tác giả "mang lại ánh sáng cho nền văn hóa nhân loại." Rượu và văn chương, không phải ngẫu nhiên mà cùng nhau hiện diện trên một sân khấu. Cả hai đều là nghệ thuật chưng cất: một loại chưng cất nho, loại kia chưng cất tâm hồn.</p>
+
+  <div class="feature-box">
+    <p class="feature-box-label">✦ Góc Nhìn Vietalian</p>
+    <h3>Nguyễn Huy Thiệp ở Đất Vang</h3>
+    <p>Nguyễn Huy Thiệp nhận giải Premio Nonino tại chính vùng đất Friuli — nơi những vườn nho trải dài trên sườn đồi Collio sản sinh ra Pinot Grigio và Ribolla Gialla thanh thoát nhất nước Ý. Ông đứng trên mảnh đất ấy, giữa hương rượu và không khí văn chương quốc tế.</p>
+    <p>Đó là khoảnh khắc <span class="flag-vn">Việt</span> và <span class="flag-it">Ý</span> thật sự gặp nhau — không phải trên bàn ăn, mà trong chiều sâu của văn hóa.</p>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- SECTION 2 -->
+  <div class="section-head">
+    <div class="section-number">II</div>
+    <div class="section-titles">
+      <p class="section-eyebrow">Hành Trình Thưởng Thức</p>
+      <h2 class="section-title">20 Vùng Rượu Vang Ý — Người Việt Cần Biết Gì?</h2>
+    </div>
+  </div>
+
+  <p>Nước Ý có <strong>20 vùng hành chính</strong>, và điều kỳ diệu là gần như tất cả đều làm rượu vang. Không có quốc gia nào trên thế giới có sự đa dạng về giống nho và phong cách rượu như Ý. Để không bị ngợp, đây là bản đồ tinh giản nhất dành cho người Việt bắt đầu hành trình khám phá.</p>
+
+  <div class="map-callout">
+    <p class="map-callout-title">🗺 Đọc Bản Đồ Ý Như Thế Nào?</p>
+    <p>Hãy hình dung nước Ý như một chiếc ủng. <strong>Phía Bắc</strong> (mũi ủng) là vùng núi Alps và Po Valley — khí hậu lục địa, rượu có cấu trúc mạnh. <strong>Miền Trung</strong> là nơi văn hóa La Mã hòa quyện với đất đồi — Tuscany và Umbria ngự trị ở đây. <strong>Miền Nam và các đảo</strong> — mặt trời nhiều hơn, rượu nồng hơn, giá tốt hơn.</p>
+  </div>
+
+  <!-- Region Grid -->
+  <div class="region-grid">
+    <div class="region-card">
+      <div class="region-name">Piedmont</div>
+      <div class="region-wine">Barolo · Barbaresco</div>
+      <div class="region-note">Vua của rượu vang Ý. Nebbiolo đỏ sẫm, cần ủ lâu.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Veneto</div>
+      <div class="region-wine">Amarone · Soave · Prosecco</div>
+      <div class="region-note">Quê hương Amarone — loại rượu làm từ nho phơi khô.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Friuli-VG</div>
+      <div class="region-wine">Pinot Grigio · Ribolla Gialla</div>
+      <div class="region-note">Nơi Premio Nonino và rượu trắng thanh thoát nhất Ý.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Trentino-AA</div>
+      <div class="region-wine">Gewürztraminer · Lagrein</div>
+      <div class="region-note">Ảnh hưởng Áo-Đức, rượu trắng thơm hoa rất đặc biệt.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Lombardy</div>
+      <div class="region-wine">Franciacorta · Sforzato</div>
+      <div class="region-note">Champagne Ý (Franciacorta) — bọt khí tinh tế, sang trọng.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Tuscany</div>
+      <div class="region-wine">Chianti · Brunello · Sassicaia</div>
+      <div class="region-note">Trái tim rượu Ý. Sangiovese ngự trị đồi Chianti.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Emilia-Romagna</div>
+      <div class="region-wine">Lambrusco · Sangiovese</div>
+      <div class="region-note">Lambrusco sủi bọt nhẹ — uống với pizza thì không thể chê.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Marche</div>
+      <div class="region-wine">Verdicchio · Rosso Conero</div>
+      <div class="region-note">Vùng ven biển Adriatic ít tên tuổi, giá trị cao bất ngờ.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Umbria</div>
+      <div class="region-wine">Sagrantino · Orvieto</div>
+      <div class="region-note">Sagrantino — giống nho tannic nhất thế giới.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Lazio</div>
+      <div class="region-wine">Est! Est!! Est!!! · Frascati</div>
+      <div class="region-note">Rượu của người Rome xưa, nhẹ nhàng và lịch sử.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Campania</div>
+      <div class="region-wine">Taurasi · Greco di Tufo</div>
+      <div class="region-note">Aglianico đỏ — tiềm năng lớn, chưa được thế giới đánh giá đúng.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Puglia</div>
+      <div class="region-wine">Primitivo · Negroamaro</div>
+      <div class="region-note">Vựa lúa mì và nho Ý. Primitivo = Zinfandel California.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Sicily</div>
+      <div class="region-wine">Nero d'Avola · Marsala</div>
+      <div class="region-note">Mặt trời, biển, núi lửa Etna — rượu cá tính bậc nhất Ý.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Sardinia</div>
+      <div class="region-wine">Cannonau · Vermentino</div>
+      <div class="region-note">Cannonau (= Grenache) — loài nho của những người sống thọ nhất thế giới.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Abruzzo</div>
+      <div class="region-wine">Montepulciano · Trebbiano</div>
+      <div class="region-note">Rượu ngon, giá cực tốt — bí mật của sommelier Ý.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Basilicata</div>
+      <div class="region-wine">Aglianico del Vulture</div>
+      <div class="region-note">Trồng trên sườn núi lửa Vulture — khoáng chất độc đáo.</div>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- SECTION 3 -->
+  <div class="section-head">
+    <div class="section-number">III</div>
+    <div class="section-titles">
+      <p class="section-eyebrow">Vietalian Pairing</p>
+      <h2 class="section-title">Uống Rượu Ý Như Người Việt — Ghép Đôi Bất Ngờ</h2>
+    </div>
+  </div>
+
+  <p>Người Ý và người Việt có một điểm chung sâu sắc: cả hai đều ăn uống như một nghi lễ. Bữa cơm gia đình ở Hà Nội hay bữa tối ở Bologna đều là thời gian thiêng liêng, không thể vội vàng. Chính vì vậy, rượu Ý hòa quyện với ẩm thực Việt tự nhiên hơn nhiều người tưởng.</p>
+
+  <p><strong>Amarone della Valpolicella</strong> (Veneto) — loại rượu xuất hiện trên logo Vietalian — với độ cồn cao, tannic mạnh và vị mận khô, thịt xông khói, sẽ là bạn đồng hành tuyệt vời của bò kho tiêu Phú Quốc hay thịt kho tàu ngày Tết. <strong>Vermentino</strong> từ Sardinia, với độ axit tươi và hương hạnh nhân, uống cùng gỏi cuốn tôm tươi hay cá hấp gừng là một phát hiện của người sành.</p>
+
+  <p>Đó chính là tinh thần <strong>Vietalian</strong>: không phải lai tạo cho có, mà tìm ra những điểm gặp gỡ thật sự giữa hai nền văn hóa đã sống cùng thời gian, đã biết yêu cái đẹp, và đã học cách biến đất đai thành nghệ thuật.</p>
+
+  <!-- CLOSING MANIFESTO -->
+  <div class="manifesto">
+    <h2 class="manifesto-title">
+      <span>Viet</span>alian —<br>
+      Hai Đất, Một Hồn
+    </h2>
+    <p>Từ những ngọn đồi Chianti đến ruộng lúa đồng bằng sông Cửu Long. Từ grappa của gia đình Nonino đến rượu đế của làng quê Việt.</p>
+    <p>Văn chương và rượu vang không bao giờ là xa xỉ — chúng là ngôn ngữ của những con người biết sống đẹp.</p>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img
+    src="/mnt/user-data/uploads/IMG_3447.png"
+    alt="Vietalian"
+    class="footer-logo"
+    onerror="this.style.display='none'"
+  />
+  <p class="footer-tagline">Vietalian Legend · Kết nối hai nền văn hóa, một tình yêu</p>
+</footer>
+
+</body>
+</html>
