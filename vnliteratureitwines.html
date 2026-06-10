@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vietalian Legend — When Vietnamese Literature Meets Italian Wine</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:    #C0392B;
+    --green:  #1A6B3A;
+    --gold:   #B8960C;
+    --cream:  #FAF7F0;
+    --ink:    #1C1C1C;
+    --muted:  #6B6055;
+    --border: rgba(184,150,12,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    overflow: hidden;
+    background: #0e0a05;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(192,57,43,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(26,107,58,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(184,150,12,0.10) 0%, transparent 50%);
+  }
+
+  /* Animated vine / grape motif */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' opacity='0.04'%3E%3Ccircle cx='40' cy='40' r='6' fill='%23B8960C'/%3E%3Ccircle cx='80' cy='60' r='4' fill='%23B8960C'/%3E%3Ccircle cx='60' cy='90' r='5' fill='%23B8960C'/%3E%3Ccircle cx='100' cy='30' r='3' fill='%23B8960C'/%3E%3Ccircle cx='200' cy='200' r='6' fill='%23B8960C'/%3E%3Ccircle cx='240' cy='220' r='4' fill='%23B8960C'/%3E%3Ccircle cx='220' cy='250' r='5' fill='%23B8960C'/%3E%3Ccircle cx='260' cy='180' r='3' fill='%23B8960C'/%3E%3C/svg%3E");
+    background-size: 400px 400px;
+  }
+
+  .hero-logo {
+    position: relative;
+    width: min(260px, 55vw);
+    margin-bottom: 40px;
+    filter: drop-shadow(0 0 40px rgba(184,150,12,0.3));
+    animation: floatLogo 5s ease-in-out infinite;
+  }
+
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .hero-eyebrow {
+    position: relative;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    position: relative;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(36px, 7vw, 84px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: #FAF7F0;
+    max-width: 900px;
+    margin-bottom: 24px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    position: relative;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: rgba(250,247,240,0.65);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  .hero-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--gold);
+    font-size: 18px;
+  }
+  .hero-divider::before,
+  .hero-divider::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+  .hero-divider::after { transform: scaleX(-1); }
+
+  /* ── ARTICLE BODY ── */
+  .article {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+  }
+
+  /* Pull quote / opening */
+  .opening-quote {
+    border-left: 3px solid var(--gold);
+    padding: 24px 32px;
+    margin: 0 0 64px;
+    background: rgba(184,150,12,0.05);
+    border-radius: 0 4px 4px 0;
+  }
+  .opening-quote p {
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .opening-quote cite {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Section header */
+  .section-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 72px 0 32px;
+  }
+
+  .section-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 0.85;
+    color: var(--gold);
+    opacity: 0.25;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .section-titles { flex: 1; }
+
+  .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  p {
+    margin-bottom: 22px;
+  }
+
+  /* Region grid */
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2px;
+    margin: 40px 0 48px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .region-card {
+    padding: 20px 18px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  .region-card:hover { background: rgba(192,57,43,0.04); }
+
+  .region-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .region-wine {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .region-note {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Premio Nonino feature box */
+  .feature-box {
+    position: relative;
+    margin: 56px 0;
+    padding: 40px 40px 40px 48px;
+    background: linear-gradient(135deg, #0e0a05 0%, #1a0f05 100%);
+    border-radius: 4px;
+    color: #FAF7F0;
+    overflow: hidden;
+  }
+
+  .feature-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, var(--red), var(--gold), var(--green));
+  }
+
+  .feature-box-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .feature-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: #FAF7F0;
+  }
+
+  .feature-box p {
+    font-size: 16px;
+    color: rgba(250,247,240,0.75);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .feature-box p:last-child { margin-bottom: 0; }
+
+  /* Map callout */
+  .map-callout {
+    background: rgba(26,107,58,0.07);
+    border: 1px solid rgba(26,107,58,0.2);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 40px 0;
+  }
+
+  .map-callout-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .map-callout p {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 0;
+  }
+
+  /* Closing manifesto */
+  .manifesto {
+    margin-top: 80px;
+    padding: 56px 0 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .manifesto-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 32px;
+  }
+
+  .manifesto-title span {
+    color: var(--red);
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .manifesto p {
+    font-size: 18px;
+    max-width: 580px;
+    margin: 0 auto 22px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* Footer brand */
+  .footer {
+    background: #0e0a05;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    width: 100px;
+    opacity: 0.85;
+    margin-bottom: 20px;
+  }
+
+  .footer-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(184,150,12,0.6);
+  }
+
+  /* Inline flag dots */
+  .flag-vn { color: var(--red); font-weight: 700; }
+  .flag-it { color: var(--green); font-weight: 700; }
+
+  /* Horizontal rule ornament */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    margin: 48px 0;
+    font-size: 22px;
+    letter-spacing: 0.5em;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 600px) {
+    .region-grid { grid-template-columns: 1fr 1fr; }
+    .feature-box { padding: 28px 24px 28px 32px; }
+    .section-number { font-size: 52px; }
+    .opening-quote { padding: 20px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <img
+    src="/mnt/user-data/uploads/IMG_3447.png"
+    alt="Vietalian Logo"
+    class="hero-logo"
+    onerror="this.style.display='none'"
+  />
+  <p class="hero-eyebrow">Vietalian Legend · Special Edition</p>
+  <h1 class="hero-title">When Vietnamese Literature<br>Meets <em>Italian Wine</em></h1>
+  <p class="hero-subtitle">From the Premio Nonino in Friuli to a glass of Amarone on a Vietnamese table — an unexpected meeting across 20 legendary wine regions</p>
+  <div class="hero-divider">✦</div>
+</section>
+
+<!-- ARTICLE BODY -->
+<article class="article">
+
+  <div class="opening-quote">
+    <p>"Literature and wine are both arts of distillation — both transform time into essence, and earth into emotion."</p>
+    <cite>— Vietalian Legend</cite>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section-head">
+    <div class="section-number">I</div>
+    <div class="section-titles">
+      <p class="section-eyebrow">An Unexpected Encounter</p>
+      <h2 class="section-title">Premio Nonino & Friuli — Where Literature Drinks Wine</h2>
+    </div>
+  </div>
+
+  <p>Few people know that the prestigious literary award <strong>Premio Nonino</strong> — where Vietnamese writer <strong>Nguyễn Huy Thiệp</strong> was once honoured — is not held in Rome or Milan. It takes place in <strong>Friuli-Venezia-Giulia</strong>, in the far northeast of Italy, on the borders of Slovenia and Austria. This is the very land that gave birth to the world-famous grappa of the Nonino family.</p>
+
+  <p>Since 1975, the Nonino distilling dynasty decided to award a prize to authors "who bring light to human culture." Wine and literature side by side — not by accident. Both are arts of distillation: one draws from grapes, the other from the soul.</p>
+
+  <div class="feature-box">
+    <p class="feature-box-label">✦ Vietalian Perspective</p>
+    <h3>Nguyễn Huy Thiệp on Wine Country Soil</h3>
+    <p>Nguyễn Huy Thiệp received his Premio Nonino award in Friuli itself — where vineyard-covered Collio hillsides produce Italy's most elegant Pinot Grigio and Ribolla Gialla. He stood on that land, surrounded by the scent of wine and the air of international literature.</p>
+    <p>That was the moment <span class="flag-vn">Viet</span> and <span class="flag-it">Italian</span> truly met — not over a meal, but in the depths of culture.</p>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- SECTION 2 -->
+  <div class="section-head">
+    <div class="section-number">II</div>
+    <div class="section-titles">
+      <p class="section-eyebrow">A Tasting Journey</p>
+      <h2 class="section-title">20 Italian Wine Regions — What Vietnamese Wine Lovers Need to Know</h2>
+    </div>
+  </div>
+
+  <p>Italy has <strong>20 administrative regions</strong>, and the magic is that almost all of them produce wine. No country on earth offers the same diversity of grape varieties and wine styles as Italy. Here is the most essential map for Vietnamese explorers just beginning their journey.</p>
+
+  <div class="map-callout">
+    <p class="map-callout-title">🗺 How to Read the Italian Map</p>
+    <p>Think of Italy as a boot. The <strong>North</strong> (top of the boot) borders the Alps and the Po Valley — continental climate, structured and powerful wines. <strong>Central Italy</strong> is where Roman heritage meets rolling hills — Tuscany and Umbria reign here. The <strong>South and islands</strong> offer more sun, fuller-bodied wines, and often excellent value.</p>
+  </div>
+
+  <!-- Region Grid -->
+  <div class="region-grid">
+    <div class="region-card">
+      <div class="region-name">Piedmont</div>
+      <div class="region-wine">Barolo · Barbaresco</div>
+      <div class="region-note">King of Italian wine. Nebbiolo — deeply tannic, needs years of ageing.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Veneto</div>
+      <div class="region-wine">Amarone · Soave · Prosecco</div>
+      <div class="region-note">Home of Amarone — made from dried grapes, rich and powerful.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Friuli-VG</div>
+      <div class="region-wine">Pinot Grigio · Ribolla Gialla</div>
+      <div class="region-note">Home of Premio Nonino and Italy's most elegant white wines.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Trentino-AA</div>
+      <div class="region-wine">Gewürztraminer · Lagrein</div>
+      <div class="region-note">Austrian-German influence; intensely aromatic whites.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Lombardy</div>
+      <div class="region-wine">Franciacorta · Sforzato</div>
+      <div class="region-note">Italy's Champagne (Franciacorta) — refined bubbles, truly luxurious.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Tuscany</div>
+      <div class="region-wine">Chianti · Brunello · Sassicaia</div>
+      <div class="region-note">The heart of Italian wine. Sangiovese reigns over the Chianti hills.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Emilia-Romagna</div>
+      <div class="region-wine">Lambrusco · Sangiovese</div>
+      <div class="region-note">Lightly sparkling Lambrusco — unbeatable with pizza.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Marche</div>
+      <div class="region-wine">Verdicchio · Rosso Conero</div>
+      <div class="region-note">Adriatic coastal region — underrated, surprisingly high quality.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Umbria</div>
+      <div class="region-wine">Sagrantino · Orvieto</div>
+      <div class="region-note">Sagrantino — the most tannic grape variety in the world.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Lazio</div>
+      <div class="region-wine">Est! Est!! Est!!! · Frascati</div>
+      <div class="region-note">Wines of ancient Rome — light, historic, approachable.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Campania</div>
+      <div class="region-wine">Taurasi · Greco di Tufo</div>
+      <div class="region-note">Aglianico red — great potential, still undervalued globally.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Puglia</div>
+      <div class="region-wine">Primitivo · Negroamaro</div>
+      <div class="region-note">Italy's vineyard powerhouse. Primitivo = California Zinfandel.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Sicily</div>
+      <div class="region-wine">Nero d'Avola · Marsala</div>
+      <div class="region-note">Sun, sea, Etna volcano — the most characterful wines in Italy.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Sardinia</div>
+      <div class="region-wine">Cannonau · Vermentino</div>
+      <div class="region-note">Cannonau (= Grenache) — the grape of the world's longest-lived people.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Abruzzo</div>
+      <div class="region-wine">Montepulciano · Trebbiano</div>
+      <div class="region-note">Excellent quality, superb value — the sommelier's secret.</div>
+    </div>
+    <div class="region-card">
+      <div class="region-name">Basilicata</div>
+      <div class="region-wine">Aglianico del Vulture</div>
+      <div class="region-note">Grown on volcanic slopes of Vulture — strikingly mineral.</div>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- SECTION 3 -->
+  <div class="section-head">
+    <div class="section-number">III</div>
+    <div class="section-titles">
+      <p class="section-eyebrow">Vietalian Pairing</p>
+      <h2 class="section-title">Drinking Italian Wine the Vietnamese Way — Surprising Pairings</h2>
+    </div>
+  </div>
+
+  <p>Italians and Vietnamese share one deep truth: both treat eating and drinking as ritual. A family meal in Hanoi or a dinner in Bologna is sacred time — never rushed. That is why Italian wine pairs with Vietnamese cuisine far more naturally than most people expect.</p>
+
+  <p><strong>Amarone della Valpolicella</strong> (Veneto) — the wine featured on the Vietalian logo — with its high alcohol, firm tannins, and flavours of dried plum and smoked meat, is a natural companion to Phú Quốc-style black pepper beef stew or slow-braised pork belly at Tết. <strong>Vermentino</strong> from Sardinia, with its bright acidity and almond finish, paired with fresh prawn spring rolls or steamed fish with ginger, is a discovery reserved for the truly curious.</p>
+
+  <p>That is the spirit of <strong>Vietalian</strong>: not fusion for its own sake, but finding the genuine meeting points between two cultures that have both lived through time, learned to love beauty, and discovered how to turn earth into art.</p>
+
+  <!-- CLOSING MANIFESTO -->
+  <div class="manifesto">
+    <h2 class="manifesto-title">
+      <span>Viet</span>alian —<br>
+      Two Lands, One Soul
+    </h2>
+    <p>From the Chianti hills to the rice paddies of the Mekong Delta. From the Nonino family's grappa to the village spirits of the Vietnamese countryside.</p>
+    <p>Literature and wine are never luxuries — they are the language of people who know how to live beautifully.</p>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img
+    src="/mnt/user-data/uploads/IMG_3447.png"
+    alt="Vietalian"
+    class="footer-logo"
+    onerror="this.style.display='none'"
+  />
+  <p class="footer-tagline">Vietalian Legend · Bridging two cultures, one shared love</p>
+</footer>
+
+</body>
+</html>
