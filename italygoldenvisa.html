@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Số 003 — Vietalian Legacy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1a1a;
+      --parchment: #f7f4ef;
+      --rule:      #d4cfc7;
+      --accent:    #2d5a3d;   /* Italian forest green */
+      --gold:      #b8952a;
+      --muted:     #6b6560;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: var(--parchment);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── WRAPPER ── */
+    .envelope {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 2px solid var(--ink);
+      padding: 32px 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .masthead-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .masthead-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── ISSUE TAG ── */
+    .issue-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0;
+    }
+    .issue-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .issue-flags { font-size: 1.4rem; letter-spacing: 4px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero-flags {
+      font-size: 2.8rem;
+      letter-spacing: 12px;
+      margin-bottom: 36px;
+      display: block;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-deck {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 580px;
+      margin-bottom: 24px;
+    }
+    .hero-body {
+      font-size: 0.97rem;
+      color: #3a3530;
+      max-width: 620px;
+      margin-bottom: 20px;
+    }
+    .hero-body strong { font-weight: 600; color: var(--ink); }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      margin: 40px 0;
+      padding: 20px 28px;
+      background: rgba(45,90,61,0.05);
+    }
+    .pull-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1.5;
+    }
+
+    /* ── TABLE ── */
+    .routes-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .routes-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    thead tr {
+      border-bottom: 2px solid var(--ink);
+    }
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+      color: #3a3530;
+    }
+    td:first-child { font-weight: 500; color: var(--ink); }
+    td.amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    tr.highlight td { background: rgba(45,90,61,0.06); }
+
+    /* ── FEATURES GRID ── */
+    .features-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .features-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 40px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+    }
+    .feature {
+      border-top: 2px solid var(--rule);
+      padding-top: 20px;
+    }
+    .feature-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .feature-desc { font-size: 0.83rem; color: var(--muted); font-weight: 300; }
+
+    /* ── CRITERIA ── */
+    .criteria-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .criteria-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .criteria-section p {
+      font-size: 0.95rem;
+      color: #3a3530;
+      font-weight: 300;
+      max-width: 620px;
+    }
+    .criteria-list {
+      list-style: none;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .criteria-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: #3a3530;
+    }
+    .criteria-list li::before {
+      content: '—';
+      color: var(--accent);
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── FLAT TAX UPDATE ── */
+    .tax-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .update-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--white);
+      padding: 4px 10px;
+      margin-bottom: 16px;
+    }
+    .tax-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .tax-section p {
+      font-size: 0.95rem;
+      color: #3a3530;
+      font-weight: 300;
+      max-width: 620px;
+      margin-bottom: 16px;
+    }
+    .tax-highlight {
+      display: inline;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ── PATHWAY TIMELINE ── */
+    .pathway-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .pathway-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 48px;
+    }
+    .pathway {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pathway-step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 20px;
+      padding-bottom: 36px;
+      position: relative;
+    }
+    .pathway-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 17px; top: 36px; bottom: 0;
+      width: 1px;
+      background: var(--rule);
+    }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      padding-top: 3px;
+    }
+    .step-body {}
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .step-desc { font-size: 0.85rem; color: var(--muted); font-weight: 300; }
+
+    /* ── ADVISORY ── */
+    .advisory-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+      background: var(--ink);
+      margin-left: -24px;
+      margin-right: -24px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .advisory-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .advisory-section .section-label { color: rgba(255,255,255,0.4); }
+    .advisory-section h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .advisory-section p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+      max-width: 580px;
+      margin-bottom: 16px;
+    }
+    .advisory-section p em {
+      color: rgba(255,255,255,0.85);
+      font-style: italic;
+    }
+    .advisory-cta {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: #e8d5a0;
+      padding: 14px 32px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .advisory-cta:hover { background: #f0e0b0; }
+
+    /* ── BIGGER PICTURE ── */
+    .context-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .context-section p {
+      font-size: 0.97rem;
+      color: #3a3530;
+      font-weight: 300;
+      max-width: 620px;
+      margin-bottom: 20px;
+    }
+    .context-section p strong { font-weight: 600; color: var(--ink); }
+
+    /* ── CLOSING QUOTE ── */
+    .closing-quote {
+      padding: 56px 0 48px;
+      text-align: center;
+      border-bottom: 2px solid var(--ink);
+    }
+    .closing-quote blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+      line-height: 1.4;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 0 48px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .footer-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    .footer-tagline {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .masthead { flex-direction: column; align-items: flex-start; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.4rem; }
+      .pathway-step { grid-template-columns: 28px 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="envelope">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <span class="masthead-brand">🇻🇳 Vietalian Legacy 🇮🇹 <strong>Số 003</strong></span>
+    <span class="masthead-meta">Việt Nam · Italy · Thị Trường Toàn Cầu</span>
+  </header>
+
+  <!-- ISSUE TAG -->
+  <div class="issue-tag">
+    <span class="issue-label">Số 003 · Tháng 6 năm 2026</span>
+    <span class="issue-flags">🇮🇹 🌍 🇻🇳</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-flags">🇮🇹 🌍 🇻🇳</span>
+    <h1>Tương lai châu Âu<br/>của bạn bắt đầu<br/>từ <em>€250.000</em></h1>
+    <p class="hero-deck">Golden Visa Italy — cánh cửa thông minh nhất vào châu Âu mà hầu hết nhà đầu tư chưa biết là còn mở.</p>
+    <p class="hero-body">Trong một thế giới siết chặt biên giới và thay đổi liên minh, tài sản quý giá nhất một nhà đầu tư có thể nắm giữ không phải bất động sản hay cổ phiếu — đó là <strong>sự lựa chọn</strong>.</p>
+    <p class="hero-body">Italy đã âm thầm xây dựng một trong những chương trình cư trú theo diện đầu tư hấp dẫn nhất châu Âu. Không cần bất động sản. Không bắt buộc lưu trú. Chuyển vốn chỉ sau khi được phê duyệt. Và ngưỡng vào thấp nhất trong các nền kinh tế EU lớn: <strong>€250.000</strong> — đầu tư vào đổi mới sáng tạo của Italy.</p>
+    <p class="hero-body">Đây không chỉ là nhập cư. Đây là một nước đi chiến lược. Và nó phù hợp hoàn toàn với tầm nhìn Vietalian Legacy: xây dựng những cây cầu bền vững giữa Việt Nam, Italy và thế giới.</p>
+  </section>
+
+  <!-- ROUTES TABLE -->
+  <section class="routes-section">
+    <span class="section-label">Bốn Hình Thức Đầu Tư</span>
+    <h2>Bao Nhiêu. Vào Đâu.</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Hình Thức</th>
+          <th>Tối Thiểu</th>
+          <th>Ghi Chú</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td>🚀 Startup Đổi Mới Sáng Tạo</td>
+          <td class="amount">€250.000</td>
+          <td>Phổ biến nhất. Ngưỡng thấp nhất EU.</td>
+        </tr>
+        <tr>
+          <td>🏢 Công Ty Italy</td>
+          <td class="amount">€500.000</td>
+          <td>Công ty niêm yết hoặc chưa niêm yết đang hoạt động tại Italy.</td>
+        </tr>
+        <tr>
+          <td>❤️ Đóng Góp Từ Thiện</td>
+          <td class="amount">€1.000.000</td>
+          <td>Dự án lợi ích công cộng — văn hoá, nghiên cứu, môi trường.</td>
+        </tr>
+        <tr>
+          <td>🏛️ Trái Phiếu Chính Phủ</td>
+          <td class="amount">€2.000.000</td>
+          <td>An toàn vốn. Bảo lãnh bởi Nhà nước Italy.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pull-quote">
+      <p>"Được phê duyệt trước. Đầu tư sau. Không rủi ro vốn trước khi Nulla Osta trong tay bạn."</p>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section">
+    <span class="section-label">Tại Sao Chọn Hình Thức Startup €250K</span>
+    <h2>Cánh Cửa Dễ Tiếp Cận Nhất Vào Châu Âu</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <div class="feature-title">Xử Lý Nhanh</div>
+        <div class="feature-desc">3–4 tháng. Một trong những chương trình cư trú EU nhanh nhất. Không tồn đọng hồ sơ.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🌐</span>
+        <div class="feature-title">Không Yêu Cầu Lưu Trú</div>
+        <div class="feature-desc">Giữ cuộc sống toàn cầu của bạn. Không có thời gian lưu trú tối thiểu để duy trì hay gia hạn giấy phép.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">👨‍👩‍👧</span>
+        <div class="feature-title">Bảo Lãnh Toàn Gia Đình</div>
+        <div class="feature-desc">Vợ/chồng, con dưới 18 tuổi và bố mẹ phụ thuộc — tất cả được bao gồm, không phát sinh chi phí.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🛡️</span>
+        <div class="feature-title">Phê Duyệt Trước Khi Đầu Tư</div>
+        <div class="feature-desc">Nhận Nulla Osta trước. Chỉ khi đó mới chuyển vốn. Không rủi ro tài chính từ đầu.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🗺️</span>
+        <div class="feature-title">Schengen Tự Do</div>
+        <div class="feature-desc">Di chuyển không cần visa qua tất cả 27 quốc gia Schengen. Châu Âu như sân nhà.</div>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🏥</span>
+        <div class="feature-title">Y Tế Italy</div>
+        <div class="feature-desc">Đăng ký SSN và tiếp cận dịch vụ y tế quốc gia Italy — miễn phí tại điểm sử dụng.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STARTUP CRITERIA -->
+  <section class="criteria-section">
+    <span class="section-label">Tiêu Chí Startup</span>
+    <h2>Không Phải Startup Nào Cũng Đủ Điều Kiện</h2>
+    <p>Để định hướng €250.000 vào hình thức startup đổi mới sáng tạo, công ty mục tiêu phải đáp ứng ba điều kiện: phải được đăng ký chính thức trong danh bạ startup đổi mới của Italy (<em>startup.registroimprese.it</em>), thành lập trong vòng <strong>5 năm</strong> gần nhất, và doanh thu hàng năm dưới <strong>€5 triệu</strong>. Trọng tâm là công nghệ, deep-tech và các mô hình kinh doanh dựa trên đổi mới — chính xác là lĩnh vực mà tài năng kỹ thuật Italy gặp gỡ nhu cầu toàn cầu.</p>
+    <ul class="criteria-list">
+      <li>Đăng ký chính thức trong danh bạ startup đổi mới của Italy</li>
+      <li>Thành lập trong vòng 5 năm gần nhất</li>
+      <li>Doanh thu hàng năm dưới €5 triệu</li>
+      <li>Tập trung vào công nghệ, deep-tech hoặc đổi mới sáng tạo</li>
+    </ul>
+  </section>
+
+  <!-- FLAT TAX -->
+  <section class="tax-section">
+    <div class="update-badge">Cập Nhật Quan Trọng 2026</div>
+    <h2>Chế Độ Thuế Cố Định Vừa Thay Đổi</h2>
+    <p>Từ ngày 1 tháng 1 năm 2026, chế độ thuế cố định của Italy dành cho cư dân mới đã được cập nhật bởi Luật Ngân Sách 2026. Thuế thay thế hàng năm trên toàn bộ thu nhập từ nước ngoài — cổ tức, lãi suất, thu nhập cho thuê, lãi vốn — hiện được ấn định ở mức cố định <span class="tax-highlight">€300.000/năm</span>, bất kể số tiền kiếm được ở nước ngoài là bao nhiêu.</p>
+    <p>Mỗi thành viên gia đình đủ điều kiện bổ sung thêm <span class="tax-highlight">€50.000/năm</span>. Chế độ này kéo dài tới <span class="tax-highlight">15 năm</span>. Đối với các cá nhân có tài sản lớn kiếm trên €1 triệu/năm từ thu nhập nước ngoài, đây là mức hiệu quả thuế phi thường, gần như không có ở đâu khác tại châu Âu.</p>
+  </section>
+
+  <!-- PATHWAY -->
+  <section class="pathway-section">
+    <span class="section-label">Lộ Trình</span>
+    <h2>Từ Hồ Sơ Đến Quốc Tịch</h2>
+    <div class="pathway">
+      <div class="pathway-step">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <div class="step-title">Nộp Đơn Xin Nulla Osta</div>
+          <div class="step-desc">Nộp kế hoạch đầu tư lên Chính phủ Italy. Chưa chuyển vốn ở giai đoạn này.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <div class="step-title">Nhận Phê Duyệt Sơ Bộ (3–4 Tháng)</div>
+          <div class="step-desc">Giấy chứng nhận không trở ngại được cấp. Chỉ lúc này bạn mới chuyển €250.000.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <div class="step-title">Nhập Cảnh Italy & Nhận Giấy Phép Cư Trú</div>
+          <div class="step-desc">Giấy phép cư trú 2 năm (permesso di soggiorno). Gia đình được bao gồm.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <div class="step-title">Gia Hạn Mỗi 3 Năm</div>
+          <div class="step-desc">Duy trì đầu tư. Không yêu cầu thời gian lưu trú tối thiểu. Có thể gia hạn vô hạn.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="step-num">05</span>
+        <div class="step-body">
+          <div class="step-title">Thường Trú Nhân — Năm Thứ 5</div>
+          <div class="step-desc">Duy trì cư trú 5 năm mở khoá quyền thường trú vĩnh viễn.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="step-num">06</span>
+        <div class="step-body">
+          <div class="step-title">Quốc Tịch Italy — Năm Thứ 10</div>
+          <div class="step-desc">10 năm + tiếng Ý trình độ B1 = đủ điều kiện nhận quốc tịch Italy (EU) đầy đủ.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /envelope -->
+
+<!-- ADVISORY — full bleed dark -->
+<section class="advisory-section">
+  <div class="advisory-inner">
+    <span class="section-label">VGlobal Capital · Tư Vấn</span>
+    <h3>Chúng Tôi Hiểu Cả Hai Bờ Của Cây Cầu</h3>
+    <p>Tại VGlobal Capital, chúng tôi đã có nhiều năm hiện diện thực tế — trong các hành lang đầu tư của Việt Nam và hệ sinh thái đổi mới của Italy. Chúng tôi hiểu startup đủ điều kiện trông như thế nào, thẩm định yêu cầu điều gì, và nhà đầu tư Việt Nam cần gì để điều hướng cư trú châu Âu một cách tự tin.</p>
+    <p><em>Nếu Golden Visa Italy là cánh cửa, chúng tôi biết ai nắm chìa khoá.</em></p>
+    <a class="advisory-cta" href="https://vietalianlegend.substack.com" target="_blank">Liên Hệ Ngay →</a>
+  </div>
+</section>
+
+<div class="envelope">
+
+  <!-- BIGGER PICTURE -->
+  <section class="context-section">
+    <span class="section-label">Bức Tranh Toàn Cảnh</span>
+    <p>Bồ Đào Nha đóng cửa tuyến bất động sản. Hy Lạp tăng ngưỡng. Tây Ban Nha huỷ chương trình hoàn toàn. Italy, ngược lại, vẫn mở, ổn định và chưa được công bố rộng rãi — một cơ hội mà những nhà đầu tư tinh tế nhất thế giới mới chỉ bắt đầu tìm thấy.</p>
+    <p>Với các doanh nhân Việt Nam, gia đình kinh doanh và nhà đầu tư đang xây dựng tài sản toàn cầu, Golden Visa Italy không chỉ là giấy phép cư trú. Đó là <strong>Kế Hoạch B</strong> — bờ thứ hai để đứng vững khi thế giới chuyển động dưới chân bạn.</p>
+    <p>Việt Nam cho bạn khát vọng. Italy cho bạn cánh cửa. Vietalian Legacy chỉ bạn con đường đi qua.</p>
+  </section>
+
+  <!-- CLOSING QUOTE -->
+  <div class="closing-quote">
+    <blockquote>"Di sản được xây dựng từng cây cầu một."</blockquote>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-brand">Vietalian Legacy · Số 003</div>
+      <div class="footer-tagline">"Kết nối Đông – Tây thông qua đầu tư xuất sắc."</div>
+    </div>
+    <div>
+      <div class="footer-meta">VGlobal Capital · vietalianlegend.substack.com</div>
+      <div class="footer-meta">Việt Nam · Italy · Thị Trường Toàn Cầu</div>
+    </div>
+  </footer>
+
+</div><!-- /envelope -->
+
+</body>
+</html>
