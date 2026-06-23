@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milan — Viet Legend × Vietalian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --noir: #0A0A0A;
+    --rouge: #8B1A1A;
+    --gold: #C9A84C;
+    --gold-light: #E8D49A;
+    --cream: #F5F0E8;
+    --white: #FFFFFF;
+    --muted: rgba(255,255,255,0.45);
+    --divider: rgba(201,168,76,0.3);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--noir);
+    color: var(--white);
+    overflow-x: hidden;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+  }
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-lang {
+    display: flex; gap: 1.2rem;
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+  .nav-lang a { color: inherit; text-decoration: none; transition: color 0.2s; cursor: pointer; }
+  .nav-lang a.active, .nav-lang a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.4) 40%, rgba(10,10,10,0.2) 70%, rgba(10,10,10,0.5) 100%),
+      linear-gradient(135deg, #1a0505 0%, #0d0d0d 40%, #05111a 100%);
+    z-index: 0;
+  }
+  /* Diagonal accent line like Viet Legend */
+  .hero-line {
+    position: absolute;
+    top: 0; right: 18%;
+    width: 1px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--rouge) 30%, var(--rouge) 70%, transparent);
+    opacity: 0.6;
+    z-index: 1;
+  }
+  /* Floating city silhouette */
+  .hero-duomo {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 55%;
+    height: 80%;
+    z-index: 1;
+    opacity: 0.08;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cpath d='M0,500 L0,300 L50,300 L50,280 L60,280 L60,200 L65,200 L65,180 L70,180 L70,200 L75,200 L75,280 L85,280 L85,300 L100,300 L100,280 L120,250 L130,280 L140,280 L140,300 L200,300 L200,280 L220,200 L240,280 L260,280 L260,300 L280,300 L280,200 L290,180 L295,200 L295,300 L350,300 L350,320 L400,310 L400,290 L410,280 L420,290 L420,310 L500,310 L500,290 L510,280 L510,260 L520,260 L520,280 L530,290 L530,300 L600,300 L600,280 L620,250 L640,250 L640,280 L650,300 L700,300 L700,250 L720,230 L740,250 L750,300 L800,300 L800,500 Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat bottom right / contain;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.3em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 300; line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--rouge);
+  }
+  .hero-sub {
+    font-size: 0.9rem; line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 500px; margin-bottom: 0.8rem;
+  }
+  .hero-viet {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.85rem;
+    color: var(--gold-light); opacity: 0.7;
+    border-left: 2px solid var(--rouge);
+    padding-left: 1rem;
+    margin-top: 1.5rem;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; right: 3rem; z-index: 2;
+    writing-mode: vertical-rl;
+    font-size: 0.6rem; letter-spacing: 0.25em;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-scroll::after {
+    content: '';
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* LANG TOGGLE */
+  .vi-content { display: none; }
+  body.lang-vi .en-content { display: none; }
+  body.lang-vi .vi-content { display: block; }
+  body.lang-vi .vi-inline { display: inline; }
+  body.lang-vi .en-inline { display: none; }
+  .vi-inline { display: none; }
+
+  /* SECTION BASE */
+  section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 0.6rem; letter-spacing: 0.35em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--rouge); }
+
+  /* DIVIDER */
+  .gold-divider {
+    width: 100%; height: 1px;
+    background: var(--divider);
+    margin: 0 3rem;
+    width: calc(100% - 6rem);
+  }
+
+  /* WHY MILAN — 3 pillars */
+  .pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-top: 3rem;
+  }
+  .pillar {
+    padding: 2.5rem;
+    border: 1px solid var(--divider);
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .pillar:hover { border-color: var(--gold); }
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300;
+    color: var(--rouge); opacity: 0.3;
+    position: absolute; top: 1rem; right: 1.5rem;
+  }
+  .pillar-icon {
+    font-size: 1.5rem; margin-bottom: 1.2rem;
+  }
+  .pillar h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+  .pillar p {
+    font-size: 0.8rem; line-height: 1.8;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* LIFESTYLE STRIP */
+  .lifestyle-strip {
+    background: linear-gradient(135deg, #0f0505 0%, #0a0a0a 50%, #050f0a 100%);
+    padding: 5rem 3rem;
+  }
+  .lifestyle-inner { max-width: 1200px; margin: 0 auto; }
+  .lifestyle-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; margin-top: 3rem;
+  }
+  .lifestyle-visual {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #1a0a0a, #0a1a10);
+    border: 1px solid var(--divider);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .lifestyle-visual::before {
+    content: 'MILAN';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; font-weight: 300;
+    color: var(--rouge); opacity: 0.12;
+    letter-spacing: 0.5em;
+  }
+  .lifestyle-visual-label {
+    position: absolute; bottom: 1rem; left: 1rem;
+    font-size: 0.6rem; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .lifestyle-text .stat-row {
+    display: flex; gap: 3rem; margin: 2rem 0;
+  }
+  .stat { }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 300;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .lifestyle-body {
+    font-size: 0.85rem; line-height: 1.9;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1rem;
+  }
+
+  /* NARRATIVE — the connector */
+  .narrative {
+    text-align: center; padding: 7rem 3rem;
+  }
+  .narrative-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300; line-height: 1.4;
+    max-width: 800px; margin: 0 auto;
+  }
+  .narrative-quote em { color: var(--rouge); font-style: italic; }
+  .narrative-attr {
+    margin-top: 2rem;
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .narrative-viet {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.35);
+    margin-top: 0.8rem;
+  }
+
+  /* PATH STEPS */
+  .path-section { padding: 6rem 3rem; }
+  .path-section .section-title { max-width: 600px; }
+  .steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; margin-top: 3rem;
+    border: 1px solid var(--divider);
+  }
+  .step {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--divider);
+    position: relative;
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    color: var(--rouge);
+    margin-bottom: 1rem;
+  }
+  .step h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 400;
+    margin-bottom: 0.7rem;
+  }
+  .step p {
+    font-size: 0.78rem; line-height: 1.8;
+    color: rgba(255,255,255,0.5);
+  }
+  .step-arrow {
+    position: absolute; top: 2.5rem; right: -0.7rem;
+    color: var(--gold); font-size: 0.8rem; z-index: 1;
+  }
+
+  /* LEAD GEN */
+  .lead-section {
+    background: linear-gradient(to right, #0d0303, #0a0a0a, #030d06);
+    padding: 7rem 3rem;
+  }
+  .lead-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .lead-copy .section-eyebrow { margin-bottom: 1.5rem; }
+  .lead-copy .section-title { margin-bottom: 1.5rem; }
+  .lead-body {
+    font-size: 0.85rem; line-height: 1.9;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 1.5rem;
+  }
+  .lead-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem; color: var(--gold-light); opacity: 0.6;
+    border-left: 2px solid var(--rouge);
+    padding-left: 1rem;
+  }
+  .lead-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label {
+    font-size: 0.6rem; letter-spacing: 0.25em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .form-input {
+    background: transparent;
+    border: none; border-bottom: 1px solid var(--divider);
+    color: var(--white); padding: 0.7rem 0;
+    font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 300;
+    outline: none; transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.25); }
+  .form-input:focus { border-color: var(--gold); }
+  .form-select {
+    background: transparent; border: none;
+    border-bottom: 1px solid var(--divider);
+    color: rgba(255,255,255,0.6);
+    padding: 0.7rem 0; font-family: 'Inter', sans-serif;
+    font-size: 0.85rem; font-weight: 300;
+    outline: none; width: 100%;
+    appearance: none; cursor: pointer;
+  }
+  .form-select option { background: #1a1a1a; color: var(--white); }
+  .form-submit {
+    margin-top: 0.5rem;
+    background: var(--rouge);
+    color: var(--white); border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.2em;
+    text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: #a02020; }
+  .form-submit:active { transform: scale(0.98); }
+  .form-privacy {
+    font-size: 0.65rem; color: rgba(255,255,255,0.3);
+    line-height: 1.6; margin-top: 0.5rem;
+  }
+  .form-success {
+    display: none; padding: 2rem;
+    border: 1px solid var(--gold);
+    text-align: center;
+  }
+  .form-success p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .form-success small { font-size: 0.75rem; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem; border-top: 1px solid var(--divider);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem; letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+  .footer-copy {
+    font-size: 0.65rem; color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    section, .path-section { padding: 4rem 1.5rem; }
+    .pillars { grid-template-columns: 1fr; }
+    .lifestyle-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .lead-inner { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .gold-divider { margin: 0 1.5rem; width: calc(100% - 3rem); }
+  }
+  @media (max-width: 480px) {
+    .steps { grid-template-columns: 1fr; }
+    .lifestyle-text .stat-row { gap: 2rem; }
+  }
+
+  /* ANIMATIONS */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">VIET LEGEND × VIETALIAN</div>
+  <div class="nav-lang">
+    <a onclick="setLang('en')" id="lang-en" class="active">EN</a>
+    <a onclick="setLang('vi')" id="lang-vi">VI</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-duomo"></div>
+
+  <div class="hero-content fade-in">
+    <div class="hero-eyebrow en-content">Milan — A City That Rewards Those Who Arrive with a Story</div>
+    <div class="hero-eyebrow vi-content">Milan — Thành Phố Dành Cho Những Ai Đến Với Câu Chuyện Riêng</div>
+
+    <h1 class="hero-title en-content">
+      You don't just<br>
+      <em>move</em> to Milan.<br>
+      You <em>belong</em> there.
+    </h1>
+    <h1 class="hero-title vi-content">
+      Bạn không chỉ<br>
+      <em>đến</em> Milan.<br>
+      Bạn <em>thuộc về</em> nơi đó.
+    </h1>
+
+    <p class="hero-sub en-content">
+      For Vietnamese families building a life between two worlds — a guide to Milan's culture, lifestyle, and how to make it home.
+    </p>
+    <p class="hero-sub vi-content">
+      Dành cho những gia đình Việt đang kiến tạo cuộc sống giữa hai nền văn hóa — hướng dẫn về văn hóa, lối sống Milan và cách biến nơi đó thành nhà.
+    </p>
+
+    <div class="hero-viet en-content">
+      Khoảng cách không phải là tiền — khoảng cách là câu chuyện.
+    </div>
+    <div class="hero-viet vi-content">
+      The gap is not money. The gap is narrative.
+    </div>
+  </div>
+
+  <div class="hero-scroll en-content">EXPLORE</div>
+  <div class="hero-scroll vi-content" style="display:none">KHÁM PHÁ</div>
+</div>
+
+<!-- DIVIDER -->
+<div class="gold-divider"></div>
+
+<!-- WHY MILAN -->
+<section class="fade-in">
+  <div class="section-eyebrow en-content">Why Milan</div>
+  <div class="section-eyebrow vi-content">Tại Sao Milan</div>
+
+  <h2 class="section-title en-content">
+    The city that feels like<br><em>home</em> — before you arrive.
+  </h2>
+  <h2 class="section-title vi-content">
+    Thành phố khiến bạn cảm thấy<br><em>như nhà</em> — trước khi đặt chân đến.
+  </h2>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div class="pillar-icon">🏛</div>
+      <h3 class="en-content">Culture & Craft</h3>
+      <h3 class="vi-content">Văn Hóa & Nghề Thủ Công</h3>
+      <p class="en-content">Milan is not a museum city. It is a living laboratory of design, fashion, architecture, and gastronomy — where tradition and innovation coexist in every neighborhood.</p>
+      <p class="vi-content">Milan không phải thành phố bảo tàng. Đây là phòng thí nghiệm sống của thiết kế, thời trang, kiến trúc và ẩm thực — nơi truyền thống và đổi mới cùng tồn tại.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div class="pillar-icon">🌐</div>
+      <h3 class="en-content">International by Nature</h3>
+      <h3 class="vi-content">Quốc Tế Theo Bản Chất</h3>
+      <p class="en-content">Over 12 million visitors annually. Three international airports. Schengen access. Milan is Europe's most business-oriented city — with a quality of life that London and Paris cannot match at the same price.</p>
+      <p class="vi-content">Hơn 12 triệu khách mỗi năm. Ba sân bay quốc tế. Tự do đi lại trong Schengen. Milan là thành phố kinh doanh nhất Châu Âu — với chất lượng sống mà London hay Paris không thể so sánh ở cùng mức giá.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div class="pillar-icon">🌿</div>
+      <h3 class="en-content">The Familiar in the Foreign</h3>
+      <h3 class="vi-content">Sự Quen Thuộc Trong Xa Lạ</h3>
+      <p class="en-content">Vietnamese and Italian cultures share more than meets the eye — a reverence for family, food as ritual, and the art of slow living. Milan feels different. It feels understood.</p>
+      <p class="vi-content">Văn hóa Việt và Ý có nhiều điểm chung hơn ta nghĩ — sự tôn kính gia đình, ẩm thực như nghi lễ, nghệ thuật sống chậm. Milan không xa lạ. Milan cảm thấy như được hiểu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="gold-divider"></div>
+
+<!-- LIFESTYLE STRIP -->
+<div class="lifestyle-strip">
+  <div class="lifestyle-inner fade-in">
+    <div class="section-eyebrow en-content">Milan in Numbers</div>
+    <div class="section-eyebrow vi-content">Milan Qua Con Số</div>
+
+    <div class="lifestyle-grid">
+      <div>
+        <div class="lifestyle-visual">
+          <div class="lifestyle-visual-label en-content">MILAN METROPOLITAN AREA</div>
+          <div class="lifestyle-visual-label vi-content">KHU VỰC ĐÔ THỊ MILAN</div>
+        </div>
+      </div>
+      <div class="lifestyle-text">
+        <h2 class="section-title en-content">A capital of <em>ambition</em> and slow Sunday lunches.</h2>
+        <h2 class="section-title vi-content">Thủ đô của <em>tham vọng</em> và những bữa trưa Chủ Nhật thong thả.</h2>
+
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-num">12M+</div>
+            <div class="stat-label en-content">Visitors / Year 2026</div>
+            <div class="stat-label vi-content">Khách mỗi năm 2026</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">€250K</div>
+            <div class="stat-label en-content">Lowest EU entry path</div>
+            <div class="stat-label vi-content">Ngưỡng đầu tư thấp nhất EU</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">10yr</div>
+            <div class="stat-label en-content">To Italian citizenship</div>
+            <div class="stat-label vi-content">Đến quốc tịch Ý</div>
+          </div>
+        </div>
+
+        <p class="lifestyle-body en-content">
+          Milan hosted the 2026 Winter Olympics alongside Cortina d'Ampezzo — cementing its position as the most international city in Italy. For global Vietnamese families, it represents something rare: a European gateway with a soul.
+        </p>
+        <p class="lifestyle-body vi-content">
+          Milan đồng đăng cai Olympic Mùa Đông 2026 cùng Cortina d'Ampezzo — khẳng định vị thế thành phố quốc tế nhất Ý. Với các gia đình Việt toàn cầu, đây là điều hiếm có: một cổng vào Châu Âu có linh hồn.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NARRATIVE QUOTE -->
+<div class="narrative fade-in">
+  <div class="section-eyebrow en-content" style="text-align:center">The Connector</div>
+  <div class="section-eyebrow vi-content" style="text-align:center">Cầu Nối</div>
+
+  <blockquote class="narrative-quote en-content">
+    "Real wealth. Real achievements. Real credibility.<br>
+    And yet — in Singapore, Geneva, Milan —<br>
+    you start from zero every time.<br>
+    The gap is not money. The gap is <em>narrative</em>."
+  </blockquote>
+  <blockquote class="narrative-quote vi-content">
+    "Tài sản thật. Thành tựu thật. Uy tín thật.<br>
+    Nhưng ở Singapore, Geneva, Milan —<br>
+    bạn bắt đầu từ zero mỗi lần.<br>
+    Khoảng cách không phải tiền. Khoảng cách là <em>câu chuyện</em>."
+  </blockquote>
+
+  <div class="narrative-attr">VIET LEGEND — BY INTRODUCTION ONLY</div>
+  <div class="narrative-viet en-content">Vietnam × Italy — for those who move between worlds.</div>
+  <div class="narrative-viet vi-content">Vietnam × Ý — dành cho những ai di chuyển giữa hai thế giới.</div>
+</div>
+
+<!-- DIVIDER -->
+<div class="gold-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="path-section fade-in">
+  <div class="section-eyebrow en-content">The Journey</div>
+  <div class="section-eyebrow vi-content">Hành Trình</div>
+
+  <h2 class="section-title en-content">From Saigon to Milan — <em>step by step</em>.</h2>
+  <h2 class="section-title vi-content">Từ Sài Gòn đến Milan — <em>từng bước</em>.</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">STEP 01</div>
+      <h4 class="en-content">Discovery Call</h4>
+      <h4 class="vi-content">Cuộc Gọi Khám Phá</h4>
+      <p class="en-content">We understand your family's goals — lifestyle, education, investment timeline — before recommending any path.</p>
+      <p class="vi-content">Chúng tôi lắng nghe mục tiêu của gia đình bạn — lối sống, giáo dục, lộ trình đầu tư — trước khi đề xuất bất kỳ hướng đi nào.</p>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="step">
+      <div class="step-num">STEP 02</div>
+      <h4 class="en-content">Milan Immersion</h4>
+      <h4 class="vi-content">Trải Nghiệm Milan</h4>
+      <p class="en-content">A curated private tour of neighborhoods, schools, and the Milanese lifestyle — before you commit to anything.</p>
+      <p class="vi-content">Chuyến tham quan riêng được tuyển chọn về các khu phố, trường học và lối sống Milan — trước khi bạn quyết định bất cứ điều gì.</p>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="step">
+      <div class="step-num">STEP 03</div>
+      <h4 class="en-content">Introduction to Partners</h4>
+      <h4 class="vi-content">Kết Nối Đối Tác</h4>
+      <p class="en-content">Through our network, we connect you with vetted real estate, legal, and immigration specialists in Milan — by introduction only.</p>
+      <p class="vi-content">Qua mạng lưới của chúng tôi, bạn được kết nối với các chuyên gia bất động sản, pháp lý và di trú được kiểm duyệt tại Milan — chỉ qua giới thiệu.</p>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="step">
+      <div class="step-num">STEP 04</div>
+      <h4 class="en-content">You Belong There</h4>
+      <h4 class="vi-content">Bạn Thuộc Về Nơi Đó</h4>
+      <p class="en-content">With the right narrative, the right network, and the right structure — Milan is no longer foreign. It is home.</p>
+      <p class="vi-content">Với câu chuyện đúng, mạng lưới đúng, cấu trúc đúng — Milan không còn xa lạ. Đó là nhà.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD GEN -->
+<div class="lead-section" id="contact">
+  <div class="lead-inner">
+    <div class="lead-copy fade-in">
+      <div class="section-eyebrow en-content">Private Enquiry</div>
+      <div class="section-eyebrow vi-content">Tư Vấn Riêng</div>
+
+      <h2 class="section-title en-content">Begin your<br><em>Milan story</em>.</h2>
+      <h2 class="section-title vi-content">Bắt đầu<br><em>câu chuyện Milan</em> của bạn.</h2>
+
+      <p class="lead-body en-content">
+        We work by introduction only. Submit your enquiry and our team will respond within 48 hours to schedule a private conversation — in Vietnamese, English, or Italian.
+      </p>
+      <p class="lead-body vi-content">
+        Chúng tôi làm việc qua giới thiệu. Gửi yêu cầu và đội ngũ sẽ phản hồi trong 48 giờ để sắp xếp cuộc trò chuyện riêng tư — bằng tiếng Việt, Anh hoặc Ý.
+      </p>
+
+      <div class="lead-note en-content">
+        Viet Legend × Vietalian is an introduction network, not a financial advisor. All investment pathways are facilitated through licensed Italian professionals.
+      </div>
+      <div class="lead-note vi-content">
+        Viet Legend × Vietalian là mạng lưới giới thiệu, không phải cố vấn tài chính. Mọi lộ trình đầu tư được thực hiện qua các chuyên gia Ý có giấy phép.
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="lead-form" id="lead-form">
+        <div class="form-group">
+          <label class="form-label en-content">Full Name / Họ và Tên</label>
+          <label class="form-label vi-content">Họ và Tên</label>
+          <input class="form-input" type="text" placeholder="Nguyễn Văn A" id="input-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label en-content">Email</label>
+          <label class="form-label vi-content">Email</label>
+          <input class="form-input" type="email" placeholder="your@email.com" id="input-email">
+        </div>
+        <div class="form-group">
+          <label class="form-label en-content">WhatsApp / Phone</label>
+          <label class="form-label vi-content">WhatsApp / Số điện thoại</label>
+          <input class="form-input" type="tel" placeholder="+84 / +39 / +1" id="input-phone">
+        </div>
+        <div class="form-group">
+          <label class="form-label en-content">I am interested in</label>
+          <label class="form-label vi-content">Tôi quan tâm đến</label>
+          <select class="form-select" id="input-interest">
+            <option value="" disabled selected>— Select / Chọn —</option>
+            <option value="lifestyle">Milan lifestyle & relocation</option>
+            <option value="investment">Investment pathways (€250K+)</option>
+            <option value="education">Education for children in Italy</option>
+            <option value="network">Viet Legend private network</option>
+            <option value="all">All of the above</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label en-content">Your Story (optional)</label>
+          <label class="form-label vi-content">Câu Chuyện Của Bạn (tùy chọn)</label>
+          <input class="form-input" type="text" placeholder="Tell us briefly about your goals..." id="input-story">
+        </div>
+
+        <button class="form-submit" onclick="submitForm()">
+          <span class="en-content">REQUEST PRIVATE CONSULTATION</span>
+          <span class="vi-content">YÊU CẦU TƯ VẤN RIÊNG</span>
+        </button>
+        <p class="form-privacy en-content">By submitting, you agree to be contacted by the Viet Legend × Vietalian team. Your information is never shared with third parties.</p>
+        <p class="form-privacy vi-content">Bằng cách gửi, bạn đồng ý được liên hệ bởi đội ngũ Viet Legend × Vietalian. Thông tin của bạn không bao giờ được chia sẻ.</p>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <p class="en-content">Thank you. Your story begins here.</p>
+        <p class="vi-content">Cảm ơn bạn. Câu chuyện của bạn bắt đầu từ đây.</p>
+        <small class="en-content">We will be in touch within 48 hours — in Vietnamese, English, or Italian.</small>
+        <small class="vi-content">Chúng tôi sẽ liên hệ trong 48 giờ — bằng tiếng Việt, Anh hoặc Ý.</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">VIET LEGEND × VIETALIAN — MILAN</div>
+  <div class="footer-copy">Vietnam × Italy — By Introduction Only</div>
+</footer>
+
+<script>
+  // Language toggle
+  function setLang(lang) {
+    if (lang === 'vi') {
+      document.body.classList.add('lang-vi');
+      document.getElementById('lang-en').classList.remove('active');
+      document.getElementById('lang-vi').classList.add('active');
+      // Handle hero scroll
+      document.querySelectorAll('.hero-scroll').forEach((el, i) => {
+        el.style.display = i === 0 ? 'none' : 'flex';
+      });
+    } else {
+      document.body.classList.remove('lang-vi');
+      document.getElementById('lang-vi').classList.remove('active');
+      document.getElementById('lang-en').classList.add('active');
+      document.querySelectorAll('.hero-scroll').forEach((el, i) => {
+        el.style.display = i === 0 ? 'flex' : 'none';
+      });
+    }
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Form submit
+  function submitForm() {
+    const name = document.getElementById('input-name').value;
+    const email = document.getElementById('input-email').value;
+    if (!name || !email) {
+      alert('Please fill in your name and email. / Vui lòng điền tên và email.');
+      return;
+    }
+    document.getElementById('lead-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+</script>
+</body>
+</html>
