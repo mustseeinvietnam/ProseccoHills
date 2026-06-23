@@ -1,0 +1,428 @@
+import { useState, useEffect, useRef } from "react";
+
+const IMAGES = {
+  hero: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1400&q=80",
+  duomo: "https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=900&q=80",
+  galleria: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80",
+  canal: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=900&q=80",
+  fashion: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
+};
+
+const T = {
+  en: {
+    nav: "VIET LEGEND × VIETALIAN",
+    heroEye: "Milan — A City That Rewards Those Who Arrive with a Story",
+    heroT1: "You don't just",
+    heroT2: "move",
+    heroT3: "to Milan.",
+    heroT4: "You",
+    heroT5: "belong",
+    heroT6: "there.",
+    heroSub: "For Vietnamese families building a life between two worlds — a guide to Milan's culture, lifestyle, and how to make it home.",
+    heroViet: "Khoảng cách không phải là tiền — khoảng cách là câu chuyện.",
+    whyEye: "Why Milan",
+    whyT: ["The city that feels like ", "home", " — before you arrive."],
+    p1t: "Culture & Craft",
+    p1b: "Milan is not a museum city. It is a living laboratory of design, fashion, architecture, and gastronomy — where tradition and innovation coexist in every neighborhood.",
+    p2t: "International by Nature",
+    p2b: "Over 12 million visitors annually. Three international airports. Schengen access. Milan is Europe's most business-oriented city — with a quality of life London and Paris cannot match at the same price.",
+    p3t: "The Familiar in the Foreign",
+    p3b: "Vietnamese and Italian cultures share more than meets the eye — a reverence for family, food as ritual, and the art of slow living. Milan feels understood.",
+    milEye: "Milan in Numbers",
+    milT: ["A capital of ", "ambition", " and slow Sunday lunches."],
+    stat1n: "12M+", stat1l: "Visitors / Year",
+    stat2n: "€250K", stat2l: "Lowest EU entry",
+    stat3n: "10yr", stat3l: "To citizenship",
+    milB: "Milan hosted the 2026 Winter Olympics alongside Cortina d'Ampezzo — cementing its position as the most international city in Italy. For global Vietnamese families, it represents something rare: a European gateway with a soul.",
+    quoteEye: "The Connector",
+    quote: ['"Real wealth. Real achievements. Real credibility.', 'And yet — in Singapore, Geneva, Milan —', 'you start from zero every time.', 'The gap is not money. The gap is '],
+    quoteEm: "narrative.",
+    quoteAttr: "VIET LEGEND — BY INTRODUCTION ONLY",
+    quoteSub: "Vietnam × Italy — for those who move between worlds.",
+    journeyEye: "The Journey",
+    journeyT: ["From Saigon to Milan — ", "step by step", "."],
+    s1t: "Discovery Call", s1b: "We understand your family's goals — lifestyle, education, investment timeline — before recommending any path.",
+    s2t: "Milan Immersion", s2b: "A curated private tour of neighborhoods, schools, and Milanese lifestyle — before you commit to anything.",
+    s3t: "Introduction to Partners", s3b: "Through our network, we connect you with vetted real estate, legal, and immigration specialists in Milan — by introduction only.",
+    s4t: "You Belong There", s4b: "With the right narrative, the right network, and the right structure — Milan is no longer foreign. It is home.",
+    ctaEye: "Private Enquiry",
+    ctaT: ["Begin your ", "Milan story", "."],
+    ctaB: "We work by introduction only. Submit your enquiry and our team will respond within 48 hours — in Vietnamese, English, or Italian.",
+    ctaNote: "Viet Legend × Vietalian is an introduction network, not a financial advisor. All investment pathways are facilitated through licensed Italian professionals.",
+    fName: "Full Name", fEmail: "Email", fPhone: "WhatsApp / Phone",
+    fInterest: "I am interested in",
+    fOpts: ["Milan lifestyle & relocation", "Investment pathways (€250K+)", "Education for children in Italy", "Viet Legend private network", "All of the above"],
+    fStory: "Your Story (optional)",
+    fStoryP: "Tell us briefly about your goals...",
+    fBtn: "REQUEST PRIVATE CONSULTATION",
+    fPrivacy: "Your information is never shared with third parties.",
+    successT: "Thank you. Your story begins here.",
+    successB: "We will be in touch within 48 hours — in Vietnamese, English, or Italian.",
+    footer1: "VIET LEGEND × VIETALIAN — MILAN",
+    footer2: "Vietnam × Italy — By Introduction Only",
+  },
+  vi: {
+    nav: "VIET LEGEND × VIETALIAN",
+    heroEye: "Milan — Thành Phố Dành Cho Những Ai Đến Với Câu Chuyện Riêng",
+    heroT1: "Bạn không chỉ",
+    heroT2: "đến",
+    heroT3: "Milan.",
+    heroT4: "Bạn",
+    heroT5: "thuộc về",
+    heroT6: "nơi đó.",
+    heroSub: "Dành cho những gia đình Việt đang kiến tạo cuộc sống giữa hai nền văn hóa — hướng dẫn về văn hóa, lối sống Milan và cách biến nơi đó thành nhà.",
+    heroViet: "The gap is not money. The gap is narrative.",
+    whyEye: "Tại Sao Milan",
+    whyT: ["Thành phố khiến bạn cảm thấy ", "như nhà", " — trước khi đặt chân đến."],
+    p1t: "Văn Hóa & Nghề Thủ Công",
+    p1b: "Milan không phải thành phố bảo tàng. Đây là phòng thí nghiệm sống của thiết kế, thời trang, kiến trúc và ẩm thực — nơi truyền thống và đổi mới cùng tồn tại.",
+    p2t: "Quốc Tế Theo Bản Chất",
+    p2b: "Hơn 12 triệu khách mỗi năm. Ba sân bay quốc tế. Tự do đi lại trong Schengen. Milan là thành phố kinh doanh nhất Châu Âu — với chất lượng sống mà London hay Paris không thể so sánh.",
+    p3t: "Sự Quen Thuộc Trong Xa Lạ",
+    p3b: "Văn hóa Việt và Ý có nhiều điểm chung — sự tôn kính gia đình, ẩm thực như nghi lễ, nghệ thuật sống chậm. Milan không xa lạ. Milan cảm thấy như được hiểu.",
+    milEye: "Milan Qua Con Số",
+    milT: ["Thủ đô của ", "tham vọng", " và những bữa trưa Chủ Nhật thong thả."],
+    stat1n: "12M+", stat1l: "Khách / Năm",
+    stat2n: "€250K", stat2l: "Ngưỡng đầu tư thấp nhất EU",
+    stat3n: "10 năm", stat3l: "Đến quốc tịch Ý",
+    milB: "Milan đồng đăng cai Olympic Mùa Đông 2026 — khẳng định vị thế thành phố quốc tế nhất Ý. Với các gia đình Việt toàn cầu, đây là điều hiếm có: một cổng vào Châu Âu có linh hồn.",
+    quoteEye: "Cầu Nối",
+    quote: ['"Tài sản thật. Thành tựu thật. Uy tín thật.', 'Nhưng ở Singapore, Geneva, Milan —', 'bạn bắt đầu từ zero mỗi lần.', 'Khoảng cách không phải tiền. Khoảng cách là '],
+    quoteEm: "câu chuyện.",
+    quoteAttr: "VIET LEGEND — CHỈ QUA GIỚI THIỆU",
+    quoteSub: "Vietnam × Ý — dành cho những ai di chuyển giữa hai thế giới.",
+    journeyEye: "Hành Trình",
+    journeyT: ["Từ Sài Gòn đến Milan — ", "từng bước", "."],
+    s1t: "Cuộc Gọi Khám Phá", s1b: "Chúng tôi lắng nghe mục tiêu của gia đình bạn — lối sống, giáo dục, lộ trình đầu tư — trước khi đề xuất bất kỳ hướng đi nào.",
+    s2t: "Trải Nghiệm Milan", s2b: "Chuyến tham quan riêng được tuyển chọn về các khu phố, trường học và lối sống Milan — trước khi bạn quyết định.",
+    s3t: "Kết Nối Đối Tác", s3b: "Qua mạng lưới của chúng tôi, bạn được kết nối với các chuyên gia bất động sản, pháp lý và di trú tại Milan — chỉ qua giới thiệu.",
+    s4t: "Bạn Thuộc Về Nơi Đó", s4b: "Với câu chuyện đúng, mạng lưới đúng, cấu trúc đúng — Milan không còn xa lạ. Đó là nhà.",
+    ctaEye: "Tư Vấn Riêng",
+    ctaT: ["Bắt đầu ", "câu chuyện Milan", " của bạn."],
+    ctaB: "Chúng tôi làm việc qua giới thiệu. Gửi yêu cầu và đội ngũ sẽ phản hồi trong 48 giờ — bằng tiếng Việt, Anh hoặc Ý.",
+    ctaNote: "Viet Legend × Vietalian là mạng lưới giới thiệu, không phải cố vấn tài chính. Mọi lộ trình đầu tư được thực hiện qua các chuyên gia Ý có giấy phép.",
+    fName: "Họ và Tên", fEmail: "Email", fPhone: "WhatsApp / Số điện thoại",
+    fInterest: "Tôi quan tâm đến",
+    fOpts: ["Lối sống & định cư tại Milan", "Lộ trình đầu tư (€250K+)", "Giáo dục cho con tại Ý", "Mạng lưới riêng Viet Legend", "Tất cả các trên"],
+    fStory: "Câu Chuyện Của Bạn (tùy chọn)",
+    fStoryP: "Chia sẻ ngắn về mục tiêu của bạn...",
+    fBtn: "YÊU CẦU TƯ VẤN RIÊNG",
+    fPrivacy: "Thông tin của bạn không bao giờ được chia sẻ với bên thứ ba.",
+    successT: "Cảm ơn bạn. Câu chuyện của bạn bắt đầu từ đây.",
+    successB: "Chúng tôi sẽ liên hệ trong 48 giờ — bằng tiếng Việt, Anh hoặc Ý.",
+    footer1: "VIET LEGEND × VIETALIAN — MILAN",
+    footer2: "Vietnam × Ý — Chỉ Qua Giới Thiệu",
+  }
+};
+
+function useInView(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function FadeIn({ children, delay = 0 }) {
+  const [ref, visible] = useInView();
+  return (
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? "translateY(0)" : "translateY(28px)",
+      transition: `opacity 0.75s ease ${delay}s, transform 0.75s ease ${delay}s`
+    }}>{children}</div>
+  );
+}
+
+const rouge = "#8B1A1A";
+const gold = "#C9A84C";
+const goldLight = "#E8D49A";
+const noir = "#090909";
+const divider = "rgba(201,168,76,0.25)";
+const muted = "rgba(255,255,255,0.45)";
+
+export default function App() {
+  const [lang, setLang] = useState("en");
+  const [form, setForm] = useState({ name: "", email: "", phone: "", interest: "", story: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const t = T[lang];
+
+  const handleSubmit = () => {
+    if (!form.name || !form.email) return alert("Please fill name & email.");
+    setSubmitted(true);
+  };
+
+  return (
+    <div style={{ background: noir, color: "#fff", fontFamily: "'Georgia', serif", overflowX: "hidden" }}>
+      {/* Google Fonts */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { margin: 0; }
+        input, select, textarea { font-family: 'Inter', sans-serif; }
+        input::placeholder { color: rgba(255,255,255,0.25); }
+        input:focus, select:focus { outline: none; border-color: ${gold} !important; }
+        select option { background: #1a1a1a; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: ${rouge}; }
+      `}</style>
+
+      {/* NAV */}
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        padding: "1.3rem 1.5rem",
+        background: "linear-gradient(to bottom, rgba(9,9,9,0.97), transparent)",
+      }}>
+        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.7rem", letterSpacing: "0.22em", color: gold }}>
+          {t.nav}
+        </span>
+        <div style={{ display: "flex", gap: "1.2rem" }}>
+          {["en","vi"].map(l => (
+            <button key={l} onClick={() => setLang(l)} style={{
+              background: "none", border: "none", cursor: "pointer",
+              fontSize: "0.65rem", letterSpacing: "0.15em",
+              color: lang === l ? gold : muted,
+              fontFamily: "'Inter', sans-serif",
+              borderBottom: lang === l ? `1px solid ${gold}` : "none",
+              paddingBottom: "2px",
+            }}>{l.toUpperCase()}</button>
+          ))}
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <div style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
+        <img src={IMAGES.hero} alt="Milan" style={{
+          position: "absolute", inset: 0, width: "100%", height: "100%",
+          objectFit: "cover", objectPosition: "center",
+        }} />
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to top, rgba(9,9,9,1) 0%, rgba(9,9,9,0.55) 45%, rgba(9,9,9,0.3) 70%, rgba(9,9,9,0.5) 100%)",
+        }} />
+        {/* Diagonal line */}
+        <div style={{
+          position: "absolute", top: 0, right: "20%",
+          width: "1px", height: "100%",
+          background: `linear-gradient(to bottom, transparent, ${rouge} 25%, ${rouge} 75%, transparent)`,
+          opacity: 0.5,
+        }} />
+
+        <div style={{ position: "relative", zIndex: 2, padding: "0 1.5rem 4.5rem", maxWidth: 680 }}>
+          <FadeIn>
+            <p style={{ fontSize: "0.6rem", letterSpacing: "0.28em", color: gold, textTransform: "uppercase", marginBottom: "1.2rem", fontFamily: "'Inter', sans-serif" }}>
+              {t.heroEye}
+            </p>
+            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.6rem, 8vw, 4.5rem)", fontWeight: 300, lineHeight: 1.1, marginBottom: "1.2rem" }}>
+              {t.heroT1}<br />
+              <em style={{ color: rouge, fontStyle: "italic" }}>{t.heroT2}</em> {t.heroT3}<br />
+              {t.heroT4} <em style={{ color: rouge, fontStyle: "italic" }}>{t.heroT5}</em> {t.heroT6}
+            </h1>
+            <p style={{ fontSize: "0.85rem", lineHeight: 1.85, color: "rgba(255,255,255,0.58)", maxWidth: 480, fontFamily: "'Inter', sans-serif", fontWeight: 300, marginBottom: "1.5rem" }}>
+              {t.heroSub}
+            </p>
+            <div style={{
+              fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic",
+              fontSize: "0.9rem", color: goldLight, opacity: 0.65,
+              borderLeft: `2px solid ${rouge}`, paddingLeft: "1rem",
+            }}>{t.heroViet}</div>
+          </FadeIn>
+        </div>
+      </div>
+
+      {/* DIVIDER */}
+      <div style={{ height: "1px", background: divider, margin: "0 1.5rem" }} />
+
+      {/* WHY MILAN */}
+      <section style={{ padding: "5rem 1.5rem" }}>
+        <FadeIn>
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: gold, textTransform: "uppercase", marginBottom: "1rem", fontFamily: "'Inter', sans-serif" }}>{t.whyEye}</p>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.9rem, 5vw, 3rem)", fontWeight: 300, lineHeight: 1.2, marginBottom: "2.5rem" }}>
+            {t.whyT[0]}<em style={{ color: rouge, fontStyle: "italic" }}>{t.whyT[1]}</em>{t.whyT[2]}
+          </h2>
+        </FadeIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1px" }}>
+          {[
+            { num: "01", img: IMAGES.duomo, title: t.p1t, body: t.p1b },
+            { num: "02", img: IMAGES.galleria, title: t.p2t, body: t.p2b },
+            { num: "03", img: IMAGES.canal, title: t.p3t, body: t.p3b },
+          ].map((p, i) => (
+            <FadeIn key={i} delay={i * 0.12}>
+              <div style={{ border: `1px solid ${divider}`, overflow: "hidden" }}>
+                <div style={{ height: 200, overflow: "hidden" }}>
+                  <img src={p.img} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                </div>
+                <div style={{ padding: "1.8rem" }}>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", color: rouge, opacity: 0.3, marginBottom: "0.5rem" }}>{p.num}</p>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 400, marginBottom: "0.7rem" }}>{p.title}</h3>
+                  <p style={{ fontSize: "0.78rem", lineHeight: 1.85, color: "rgba(255,255,255,0.52)", fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>{p.body}</p>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* MILAN NUMBERS */}
+      <div style={{ background: "linear-gradient(135deg, #0f0505 0%, #090909 50%, #050f0a 100%)", padding: "5rem 1.5rem" }}>
+        <FadeIn>
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: gold, textTransform: "uppercase", marginBottom: "1rem", fontFamily: "'Inter', sans-serif" }}>{t.milEye}</p>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.9rem, 5vw, 3rem)", fontWeight: 300, lineHeight: 1.2, marginBottom: "2rem" }}>
+            {t.milT[0]}<em style={{ color: rouge, fontStyle: "italic" }}>{t.milT[1]}</em>{t.milT[2]}
+          </h2>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <img src={IMAGES.fashion} alt="Milan fashion" style={{
+            width: "100%", height: 220, objectFit: "cover",
+            objectPosition: "center 30%",
+            border: `1px solid ${divider}`, marginBottom: "2rem", display: "block"
+          }} />
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          <div style={{ display: "flex", gap: "2rem", marginBottom: "1.8rem", flexWrap: "wrap" }}>
+            {[{ n: t.stat1n, l: t.stat1l }, { n: t.stat2n, l: t.stat2l }, { n: t.stat3n, l: t.stat3l }].map((s, i) => (
+              <div key={i}>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.2rem", fontWeight: 300, color: gold }}>{s.n}</div>
+                <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: muted, fontFamily: "'Inter', sans-serif" }}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: "0.83rem", lineHeight: 1.9, color: "rgba(255,255,255,0.55)", fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>{t.milB}</p>
+        </FadeIn>
+      </div>
+
+      {/* QUOTE */}
+      <div style={{ padding: "6rem 1.5rem", textAlign: "center" }}>
+        <FadeIn>
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: gold, textTransform: "uppercase", marginBottom: "2rem", fontFamily: "'Inter', sans-serif" }}>{t.quoteEye}</p>
+          <blockquote style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.4rem, 4vw, 2.2rem)", fontWeight: 300, lineHeight: 1.55, maxWidth: 720, margin: "0 auto" }}>
+            {t.quote.map((line, i) => (
+              <span key={i}>{line}{i === t.quote.length - 1 && <em style={{ color: rouge, fontStyle: "italic" }}>{t.quoteEm}</em>}<br /></span>
+            ))}
+          </blockquote>
+          <p style={{ marginTop: "2rem", fontSize: "0.65rem", letterSpacing: "0.25em", color: gold, fontFamily: "'Inter', sans-serif" }}>{t.quoteAttr}</p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "0.9rem", color: "rgba(255,255,255,0.3)", marginTop: "0.6rem" }}>{t.quoteSub}</p>
+        </FadeIn>
+      </div>
+
+      <div style={{ height: "1px", background: divider, margin: "0 1.5rem" }} />
+
+      {/* JOURNEY */}
+      <section style={{ padding: "5rem 1.5rem" }}>
+        <FadeIn>
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: gold, textTransform: "uppercase", marginBottom: "1rem", fontFamily: "'Inter', sans-serif" }}>{t.journeyEye}</p>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.9rem, 5vw, 3rem)", fontWeight: 300, lineHeight: 1.2, marginBottom: "2.5rem" }}>
+            {t.journeyT[0]}<em style={{ color: rouge, fontStyle: "italic" }}>{t.journeyT[1]}</em>{t.journeyT[2]}
+          </h2>
+        </FadeIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1px", border: `1px solid ${divider}` }}>
+          {[
+            { step: "01", title: t.s1t, body: t.s1b },
+            { step: "02", title: t.s2t, body: t.s2b },
+            { step: "03", title: t.s3t, body: t.s3b },
+            { step: "04", title: t.s4t, body: t.s4b },
+          ].map((s, i) => (
+            <FadeIn key={i} delay={i * 0.1}>
+              <div style={{ padding: "2rem 1.5rem", borderRight: `1px solid ${divider}`, height: "100%" }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.65rem", letterSpacing: "0.2em", color: rouge, marginBottom: "1rem" }}>STEP {s.step}</p>
+                <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", fontWeight: 400, marginBottom: "0.7rem" }}>{s.title}</h4>
+                <p style={{ fontSize: "0.75rem", lineHeight: 1.85, color: "rgba(255,255,255,0.48)", fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>{s.body}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* LEAD GEN */}
+      <div style={{ background: "linear-gradient(to right, #0d0303, #090909, #030d06)", padding: "5rem 1.5rem" }} id="contact">
+        <FadeIn>
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: gold, textTransform: "uppercase", marginBottom: "1rem", fontFamily: "'Inter', sans-serif" }}>{t.ctaEye}</p>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.9rem, 5vw, 3rem)", fontWeight: 300, lineHeight: 1.2, marginBottom: "1.2rem" }}>
+            {t.ctaT[0]}<em style={{ color: rouge, fontStyle: "italic" }}>{t.ctaT[1]}</em>{t.ctaT[2]}
+          </h2>
+          <p style={{ fontSize: "0.82rem", lineHeight: 1.9, color: "rgba(255,255,255,0.52)", fontFamily: "'Inter', sans-serif", fontWeight: 300, marginBottom: "1.2rem" }}>{t.ctaB}</p>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "0.85rem", color: goldLight, opacity: 0.6, borderLeft: `2px solid ${rouge}`, paddingLeft: "1rem", marginBottom: "2.5rem" }}>{t.ctaNote}</div>
+        </FadeIn>
+
+        {submitted ? (
+          <FadeIn>
+            <div style={{ border: `1px solid ${gold}`, padding: "2.5rem", textAlign: "center", maxWidth: 480 }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: gold, marginBottom: "0.8rem" }}>{t.successT}</p>
+              <p style={{ fontSize: "0.78rem", color: muted, fontFamily: "'Inter', sans-serif" }}>{t.successB}</p>
+            </div>
+          </FadeIn>
+        ) : (
+          <FadeIn delay={0.1}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", maxWidth: 480 }}>
+              {[
+                { label: t.fName, id: "name", type: "text", ph: "Nguyễn Văn A" },
+                { label: t.fEmail, id: "email", type: "email", ph: "your@email.com" },
+                { label: t.fPhone, id: "phone", type: "tel", ph: "+84 / +39" },
+              ].map(f => (
+                <div key={f.id}>
+                  <p style={{ fontSize: "0.58rem", letterSpacing: "0.25em", color: gold, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: "0.5rem" }}>{f.label}</p>
+                  <input type={f.type} placeholder={f.ph} value={form[f.id]}
+                    onChange={e => setForm({ ...form, [f.id]: e.target.value })}
+                    style={{
+                      width: "100%", background: "transparent",
+                      border: "none", borderBottom: `1px solid ${divider}`,
+                      color: "#fff", padding: "0.6rem 0",
+                      fontSize: "0.85rem", fontWeight: 300,
+                    }} />
+                </div>
+              ))}
+              <div>
+                <p style={{ fontSize: "0.58rem", letterSpacing: "0.25em", color: gold, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: "0.5rem" }}>{t.fInterest}</p>
+                <select value={form.interest} onChange={e => setForm({ ...form, interest: e.target.value })}
+                  style={{
+                    width: "100%", background: "transparent",
+                    border: "none", borderBottom: `1px solid ${divider}`,
+                    color: form.interest ? "#fff" : "rgba(255,255,255,0.35)",
+                    padding: "0.6rem 0", fontSize: "0.85rem", fontWeight: 300, appearance: "none",
+                  }}>
+                  <option value="" disabled>— Select / Chọn —</option>
+                  {t.fOpts.map((o, i) => <option key={i} value={o}>{o}</option>)}
+                </select>
+              </div>
+              <div>
+                <p style={{ fontSize: "0.58rem", letterSpacing: "0.25em", color: gold, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: "0.5rem" }}>{t.fStory}</p>
+                <input type="text" placeholder={t.fStoryP} value={form.story}
+                  onChange={e => setForm({ ...form, story: e.target.value })}
+                  style={{
+                    width: "100%", background: "transparent",
+                    border: "none", borderBottom: `1px solid ${divider}`,
+                    color: "#fff", padding: "0.6rem 0",
+                    fontSize: "0.85rem", fontWeight: 300,
+                  }} />
+              </div>
+              <button onClick={handleSubmit} style={{
+                background: rouge, color: "#fff", border: "none",
+                padding: "1rem 2rem", cursor: "pointer",
+                fontSize: "0.7rem", letterSpacing: "0.2em",
+                textTransform: "uppercase", fontFamily: "'Inter', sans-serif",
+                alignSelf: "flex-start", marginTop: "0.5rem",
+              }}>{t.fBtn}</button>
+              <p style={{ fontSize: "0.62rem", color: "rgba(255,255,255,0.28)", fontFamily: "'Inter', sans-serif", lineHeight: 1.6 }}>{t.fPrivacy}</p>
+            </div>
+          </FadeIn>
+        )}
+      </div>
+
+      {/* FOOTER */}
+      <div style={{
+        padding: "2rem 1.5rem",
+        borderTop: `1px solid ${divider}`,
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        flexWrap: "wrap", gap: "0.8rem",
+      }}>
+        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.7rem", letterSpacing: "0.25em", color: gold }}>{t.footer1}</span>
+        <span style={{ fontSize: "0.62rem", color: muted, fontFamily: "'Inter', sans-serif" }}>{t.footer2}</span>
+      </div>
+    </div>
+  );
+}
