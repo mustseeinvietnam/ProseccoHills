@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genesis — Tĩnh Lặng &amp; Điềm Báo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#06070A;
+    --panel:#0E1116;
+    --panel-2:#13171F;
+    --line:#232833;
+    --gold:#C9A15A;
+    --gold-bright:#EAC97E;
+    --heaven:#8FA9C2;      /* Càn — trời, ánh kim loãng */
+    --ember:#C1573D;       /* Ly — hoả */
+    --text-warm:#EDE8DD;
+    --text-muted:#8D96A6;
+    --text-dim:#4E5666;
+    --node1:#B8925A;       /* Kí giả Thợ săn — đồng/thép */
+    --node1-glow:#D8B074;
+    --node2:#7A2E4A;       /* Nhậu Witch — rượu vang */
+    --node2-glow:#C25A82;
+    --node3:#B98FA3;       /* Le Cristal d'Amour — thạch anh */
+    --node3-glow:#E8C7DA;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--text-warm);
+    font-family:'Be Vietnam Pro', sans-serif;
+    font-weight:300;
+    line-height:1.7;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  .serif{font-family:'Cormorant Garamond', serif;}
+  .display{font-family:'Marcellus', serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  .view{display:none;}
+  .view.active{display:block;}
+
+  .wrap{max-width:980px; margin:0 auto; padding:0 32px; position:relative; z-index:2;}
+
+  /* ================= HOME ================= */
+  #view-home{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:80px 24px 60px;
+    text-align:center;
+  }
+  #view-home::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 700px 500px at 50% 20%, rgba(143,169,194,0.08), transparent 60%),
+      radial-gradient(ellipse 600px 500px at 50% 80%, rgba(193,87,61,0.06), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .stars{position:fixed; inset:0; z-index:0; pointer-events:none;}
+  .star{
+    position:absolute;
+    width:2px; height:2px;
+    background:var(--gold-bright);
+    border-radius:50%;
+    opacity:0.35;
+    animation:twinkle 5s ease-in-out infinite;
+  }
+  @keyframes twinkle{ 0%,100%{opacity:0.15;} 50%{opacity:0.6;} }
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--heaven);
+    font-weight:500;
+    margin-bottom:36px;
+  }
+
+  /* --- Genesis emblem --- */
+  .emblem-wrap{
+    position:relative;
+    width:220px; height:220px;
+    margin:0 auto 40px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .emblem-glow{
+    position:absolute; inset:-40px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(234,201,126,0.16), transparent 70%);
+    animation:breathe 6s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform:scale(0.94); opacity:0.7; }
+    50%{ transform:scale(1.06); opacity:1; }
+  }
+  .emblem-ring{
+    position:absolute; inset:0;
+    border:1px solid rgba(201,161,90,0.4);
+    border-radius:50%;
+  }
+  .emblem-ring.inner{ inset:22px; border-color:rgba(143,169,194,0.3); }
+  .trigram{
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; gap:5px;
+    align-items:center;
+  }
+  .trigram .bar{ width:34px; height:3px; background:currentColor; border-radius:1px; }
+  .trigram .bar.broken{ display:flex; gap:6px; }
+  .trigram .bar.broken span{ flex:1; height:3px; background:currentColor; border-radius:1px; }
+  .trigram.can{ top:2px; color:var(--heaven); }
+  .trigram.ly{ bottom:2px; color:var(--ember); }
+  .trigram-label{
+    font-size:9px; letter-spacing:0.2em; margin-top:6px; opacity:0.7;
+  }
+  .emblem-number{
+    font-family:'Marcellus', serif;
+    font-size:64px;
+    color:var(--gold-bright);
+    text-shadow:0 0 26px rgba(234,201,126,0.5);
+  }
+
+  .hero-title{
+    font-family:'Marcellus', serif;
+    font-size:clamp(30px,4.6vw,44px);
+    font-style:italic;
+    letter-spacing:0.01em;
+    color:var(--text-warm);
+    margin-bottom:14px;
+  }
+  .hero-title .en{ color:var(--gold-bright); }
+  .hero-sub{
+    font-family:'Cormorant Garamond', serif;
+    font-size:19px;
+    color:var(--heaven);
+    letter-spacing:0.06em;
+    margin-bottom:34px;
+  }
+  .philosophy{
+    max-width:52ch;
+    color:var(--text-muted);
+    font-size:15.5px;
+    margin-bottom:56px;
+  }
+  .philosophy strong{ color:var(--text-warm); font-weight:500; }
+
+  .gate-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Be Vietnam Pro', sans-serif;
+    font-size:12.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    text-decoration:none;
+    cursor:pointer;
+    padding:14px 10px;
+    border-top:1px solid var(--line);
+    transition:color 0.4s ease, border-color 0.4s ease, letter-spacing 0.4s ease;
+    background:none; border-left:none; border-right:none; border-bottom:none;
+  }
+  .gate-link:hover{
+    color:var(--gold-bright);
+    border-top-color:var(--gold);
+    letter-spacing:0.26em;
+  }
+  .gate-mark{
+    display:inline-block;
+    width:6px; height:6px;
+    border:1px solid currentColor;
+    transform:rotate(45deg);
+  }
+
+  /* ================= HIDDEN PAGE ================= */
+  #view-hidden{
+    min-height:100vh;
+    padding:70px 0 100px;
+    position:relative;
+  }
+  #view-hidden::before{
+    content:"";
+    position:fixed; inset:0;
+    background:radial-gradient(ellipse 900px 600px at 50% -10%, rgba(184,146,90,0.07), transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+  .back-link{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--text-dim);
+    background:none; border:none; cursor:pointer;
+    margin-bottom:50px;
+    transition:color 0.3s ease;
+  }
+  .back-link:hover{ color:var(--heaven); }
+
+  .hidden-head{ margin-bottom:64px; }
+  .hidden-head .eyebrow{ color:var(--gold); margin-bottom:16px; text-align:left; }
+  .hidden-head h2{
+    font-family:'Marcellus', serif;
+    font-size:clamp(28px,4vw,40px);
+    margin-bottom:14px;
+  }
+  .hidden-head p{
+    color:var(--text-muted);
+    font-size:15px;
+    max-width:56ch;
+  }
+
+  /* network of 3 nodes */
+  .network{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    margin-bottom:10px;
+  }
+  .network-svg{
+    position:absolute;
+    top:38px; left:0; right:0;
+    height:2px;
+    width:100%;
+    z-index:0;
+  }
+  .node-col{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:0 18px;
+  }
+  .node-btn{
+    width:76px; height:76px;
+    border-radius:50%;
+    background:var(--panel);
+    border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    position:relative;
+    color:var(--text-dim);
+    transition:border-color 0.5s ease, box-shadow 0.5s ease, transform 0.45s cubic-bezier(.34,1.56,.64,1), color 0.5s ease, background 0.5s ease;
+    margin-bottom:20px;
+  }
+  .node-btn:hover{ transform:translateY(-3px); border-color:var(--text-muted); }
+  .node-col:not(.unlocked) .node-btn{ animation:invite-pulse 3.2s ease-in-out infinite; }
+  .node-col:nth-child(2):not(.unlocked) .node-btn{ animation-delay:0.5s; }
+  .node-col:nth-child(3):not(.unlocked) .node-btn{ animation-delay:1s; }
+  @keyframes invite-pulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(201,161,90,0); }
+    50%{ box-shadow:0 0 0 6px rgba(201,161,90,0.07); }
+  }
+  .node-btn svg{ width:26px; height:26px; transition:opacity 0.45s ease, transform 0.55s cubic-bezier(.34,1.56,.64,1); }
+  .node-btn .icon-lock{ opacity:1; transform:rotate(0deg) scale(1); }
+  .node-btn .icon-open{ opacity:0; position:absolute; transform:rotate(-90deg) scale(0.4); }
+
+  /* click feedback even before unlock settles */
+  .node-btn:active{ transform:translateY(-3px) scale(0.92); }
+
+  .node-col.unlocked .node-btn{
+    transform:translateY(-3px) scale(1.08);
+    background:var(--panel-2);
+  }
+  .node-col.unlocked[data-color="1"] .node-btn{ color:var(--node1-glow); border-color:var(--node1); box-shadow:0 0 0 5px rgba(184,146,90,0.1), 0 0 30px -2px var(--node1-glow); }
+  .node-col.unlocked[data-color="2"] .node-btn{ color:var(--node2-glow); border-color:var(--node2); box-shadow:0 0 0 5px rgba(194,90,130,0.12), 0 0 30px -2px var(--node2-glow); }
+  .node-col.unlocked[data-color="3"] .node-btn{ color:var(--node3-glow); border-color:var(--node3); box-shadow:0 0 0 5px rgba(232,199,218,0.12), 0 0 30px -2px var(--node3-glow); }
+
+  .node-col.unlocked .icon-lock{ opacity:0; transform:rotate(90deg) scale(0.3); }
+  .node-col.unlocked .icon-open{ opacity:1; transform:rotate(0deg) scale(1); animation:pop-spin 0.6s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes pop-spin{
+    0%{ opacity:0; transform:rotate(-120deg) scale(0.3); }
+    60%{ opacity:1; transform:rotate(10deg) scale(1.15); }
+    100%{ opacity:1; transform:rotate(0deg) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .node-btn, .node-btn svg{ transition-duration:0.15s; }
+    .node-col.unlocked .icon-open{ animation:none; }
+    .node-col:not(.unlocked) .node-btn{ animation:none; }
+  }
+
+  .node-name{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:17px;
+    text-align:center;
+    color:var(--text-warm);
+    margin-bottom:4px;
+  }
+  .node-hint{
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    text-align:center;
+  }
+  .node-col.unlocked .node-hint{ color:var(--text-muted); }
+
+  .detail-card{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height 0.6s ease, opacity 0.5s ease, margin-top 0.6s ease;
+    margin-top:0;
+    text-align:left;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:2px;
+  }
+  .node-col.unlocked .detail-card{
+    max-height:400px;
+    opacity:1;
+    margin-top:8px;
+  }
+  .detail-inner{ padding:22px 22px 24px; }
+  .detail-eyebrow{
+    font-size:10.5px;
+    letter-spacing:0.14em;
+    margin-bottom:10px;
+  }
+  .node-col[data-color="1"] .detail-eyebrow{ color:var(--node1-glow); font-family:'IBM Plex Mono', monospace; }
+  .node-col[data-color="2"] .detail-eyebrow{ color:var(--node2-glow); }
+  .node-col[data-color="3"] .detail-eyebrow{ color:var(--node3-glow); }
+  .detail-title{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:16px;
+    color:var(--text-warm);
+    margin-bottom:10px;
+  }
+  .detail-body{ font-size:13px; color:var(--text-muted); line-height:1.65; }
+
+  @media (max-width:760px){
+    .network{ grid-template-columns:1fr; gap:36px; }
+    .network-svg{ display:none; }
+    .node-col{ padding:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<!-- ============ TRANG CHỦ ============ -->
+<section id="view-home" class="view active">
+  <div class="wrap">
+    <div class="eyebrow">Tĩnh Lặng &amp; Điềm Báo</div>
+
+    <div class="emblem-wrap">
+      <div class="emblem-glow"></div>
+      <div class="emblem-ring"></div>
+      <div class="emblem-ring inner"></div>
+      <div class="trigram can">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="trigram-label">CÀN</div>
+      </div>
+      <div class="emblem-number">9</div>
+      <div class="trigram ly">
+        <div class="trigram-label" style="margin-top:0; margin-bottom:6px;">LY</div>
+        <div class="bar broken"><span></span><span></span></div>
+        <div class="bar"></div>
+        <div class="bar broken"><span></span><span></span></div>
+      </div>
+    </div>
+
+    <h1 class="hero-title">Born from Chaos<span class="en">.</span></h1>
+    <div class="hero-sub">Khai Phóng</div>
+
+    <p class="philosophy">
+      Từ hỗn mang, một trật tự riêng được sinh ra. Số 9 khép lại một chu kỳ để mở ra một khởi nguyên —
+      <strong>Càn</strong> là trời, là ý chí không ngơi nghỉ; <strong>Ly</strong> là lửa, là ánh sáng bám vào vật chất
+      để trở nên hữu hình. Đây không phải nơi trình bày câu trả lời, mà là nơi ghi lại quá trình
+      tự khai phóng khỏi những khuôn định cũ.
+    </p>
+
+    <button class="gate-link" onclick="showView('hidden')">
+      <span class="gate-mark"></span> mạng lưới tri thức ẩn <span class="gate-mark"></span>
+    </button>
+  </div>
+</section>
+
+<!-- ============ TRANG ẨN ============ -->
+<section id="view-hidden" class="view">
+  <div class="wrap">
+    <button class="back-link" onclick="showView('home')">← quay về tĩnh lặng</button>
+
+    <div class="hidden-head">
+      <div class="eyebrow">Trang Ẩn</div>
+      <h2 class="display">Mạng Lưới Tri Thức</h2>
+      <p>Ba nút khoá, ba không gian tách biệt. Chạm vào từng nút để mở khoá và bước vào.</p>
+    </div>
+
+    <div class="network">
+      <svg class="network-svg" preserveAspectRatio="none">
+        <line x1="16.6%" y1="1" x2="50%" y2="1" stroke="#232833" stroke-width="1.5"/>
+        <line x1="50%" y1="1" x2="83.4%" y2="1" stroke="#232833" stroke-width="1.5"/>
+      </svg>
+
+      <!-- Node 1 -->
+      <div class="node-col" data-color="1" id="node-1">
+        <div class="node-btn" onclick="toggleNode(1)">
+          <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+        </div>
+        <div class="node-name">Kí Giả Thợ Săn</div>
+        <div class="node-hint">chạm để mở khoá</div>
+        <div class="detail-card">
+          <div class="detail-inner">
+            <div class="detail-eyebrow">STRATEGY · EDGE AI · SIGNAL</div>
+            <div class="detail-title">The Journalist Hunter</div>
+            <div class="detail-body">Góc quan sát chiến lược sắc bén, nơi những đường biên công nghệ Edge AI mới nhất được mổ xẻ đến tận gốc. Không chạy theo tin đồn — chỉ săn tín hiệu thật giữa nhiễu loạn thông tin.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 2 -->
+      <div class="node-col" data-color="2" id="node-2">
+        <div class="node-btn" onclick="toggleNode(2)">
+          <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3h8M12 3v6a5 5 0 0 1-3.5 4.77L7 14v6h10v-6l-1.5-.23A5 5 0 0 1 12 9V3"/></svg>
+        </div>
+        <div class="node-name">Nhậu Witch</div>
+        <div class="node-hint">chạm để mở khoá</div>
+        <div class="detail-card">
+          <div class="detail-inner">
+            <div class="detail-eyebrow">AESTHETIC · RITUAL · CONNEXION</div>
+            <div class="detail-title">L'amante du vin</div>
+            <div class="detail-body">Không gian của những cuộc chuyện trò bên ly rượu — nơi thẩm mỹ và kết nối con người giao thoa. Mỗi chai rượu là một câu chuyện, mỗi cuộc gặp là một nghi thức nhỏ được cử hành đúng lúc.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 3 -->
+      <div class="node-col" data-color="3" id="node-3">
+        <div class="node-btn" onclick="toggleNode(3)">
+          <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l6 6-6 14L6 8z"/><path d="M6 8h12M9.5 8L12 22M14.5 8L12 22"/></svg>
+        </div>
+        <div class="node-name">Le Cristal d'Amour</div>
+        <div class="node-hint">chạm để mở khoá</div>
+        <div class="detail-card">
+          <div class="detail-inner">
+            <div class="detail-eyebrow">BESPOKE · ONE-OF-ONE · ATELIER</div>
+            <div class="detail-title">Sáng Tạo Độc Bản</div>
+            <div class="detail-body">Những tác phẩm ra đời từ cảm xúc và chất liệu quý, không sản xuất hàng loạt. Mỗi tạo tác chỉ có một phiên bản duy nhất — dành cho một câu chuyện duy nhất.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function showView(name){
+    document.getElementById('view-home').classList.toggle('active', name==='home');
+    document.getElementById('view-hidden').classList.toggle('active', name==='hidden');
+    window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+  }
+  function toggleNode(n){
+    document.getElementById('node-'+n).classList.toggle('unlocked');
+  }
+  // ambient stars
+  const starLayer = document.getElementById('stars');
+  const positions = [
+    [8,15],[15,60],[22,30],[30,80],[38,12],[45,55],[52,25],[60,70],
+    [68,18],[75,48],[82,65],[88,22],[12,85],[92,85],[58,90],[35,45]
+  ];
+  positions.forEach((p,i)=>{
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.left=p[0]+'%';
+    s.style.top=p[1]+'%';
+    s.style.animationDelay=(i*0.4)+'s';
+    starLayer.appendChild(s);
+  });
+</script>
+
+</body>
+</html>
